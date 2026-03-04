@@ -22,15 +22,30 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;padding:28px 1
 .time-display{font-family:'JetBrains Mono',monospace;font-size:54px;font-weight:400;line-height:1;letter-spacing:3px;background:linear-gradient(135deg,#eef2ff 30%,#8fb4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .date-display{font-size:11px;color:var(--muted);margin-top:8px;letter-spacing:2px;text-transform:uppercase;font-weight:600;}
 .card{width:100%;max-width:420px;background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,0.5);}
+
+/* Loading overlay */
 .loading-overlay{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;}
 .spinner{width:38px;height:38px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg)}}
-.loading-msg{font-size:13px;color:var(--muted);}
+.loading-msg{font-size:13px;color:var(--muted);text-align:center;padding:0 24px;line-height:1.6;}
+.loading-step{font-size:11px;color:var(--muted);opacity:0.6;font-family:'JetBrains Mono',monospace;}
+
 .sec{padding:18px 20px;border-bottom:1px solid var(--border);}
 .field-lbl{display:block;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
 .emp-sel{width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;font-weight:500;padding:13px 16px;border-radius:12px;outline:none;appearance:none;cursor:pointer;transition:border-color 0.2s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235a6a85' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
 .emp-sel:focus{border-color:var(--accent);}
 .emp-sel option{background:var(--card);}
+
+/* Status bar shown after load - tells employee their current state */
+.status-bar{display:none;align-items:center;gap:10px;padding:12px 20px;border-bottom:1px solid var(--border);}
+.status-bar.show{display:flex;}
+.status-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.status-dot.working{background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s infinite;}
+.status-dot.out{background:var(--muted);}
+.status-dot.none{background:var(--muted);}
+.status-text{font-size:13px;font-weight:600;}
+.status-sub{font-size:11px;color:var(--muted);margin-top:1px;font-family:'JetBrains Mono',monospace;}
+
 .gps-row{padding:14px 20px;border-bottom:1px solid var(--border);}
 .gps-block{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:12px;background:var(--surface);border:1px solid var(--border);cursor:pointer;transition:all 0.2s;}
 .gps-block:hover{border-color:var(--accent);}
@@ -45,6 +60,7 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;padding:28px 1
 .g-ok{background:rgba(16,217,138,0.15);color:var(--green);}
 .g-far{background:rgba(242,85,85,0.15);color:var(--red);}
 .g-err{background:rgba(242,85,85,0.1);color:var(--red);}
+
 .btns{padding:18px 20px;display:flex;flex-direction:column;gap:10px;}
 .abtn{width:100%;padding:16px;border:none;border-radius:14px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.3px;cursor:pointer;transition:all 0.25s;display:flex;align-items:center;justify-content:center;gap:8px;}
 .abtn:disabled{opacity:0.3;cursor:not-allowed;transform:none!important;box-shadow:none!important;}
@@ -55,13 +71,16 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;padding:28px 1
 .abtn-in:not(:disabled):hover{box-shadow:0 12px 36px rgba(16,217,138,0.38);transform:translateY(-2px);}
 .abtn-out{background:linear-gradient(135deg,#f25555,#c92e2e);color:white;box-shadow:0 8px 28px rgba(242,85,85,0.22);}
 .abtn-out:not(:disabled):hover{box-shadow:0 12px 36px rgba(242,85,85,0.38);transform:translateY(-2px);}
+
 .saving-row{display:none;align-items:center;justify-content:center;gap:8px;padding:10px;font-size:12px;color:var(--amber);background:rgba(247,184,79,0.07);border-top:1px solid rgba(247,184,79,0.12);}
 .saving-row.on{display:flex;}
 .mini-spin{width:13px;height:13px;border:2px solid rgba(247,184,79,0.3);border-top-color:var(--amber);border-radius:50%;animation:spin 0.7s linear infinite;}
+
 .log-wrap{padding:18px 20px;}
 .log-hdr{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:12px;}
 .log-empty{text-align:center;padding:18px;color:var(--muted);font-size:13px;}
-.log-item{display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:10px;margin-bottom:8px;background:var(--surface);border:1px solid var(--border);}
+.log-item{display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:10px;margin-bottom:8px;background:var(--surface);border:1px solid var(--border);animation:si 0.3s ease;}
+@keyframes si{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
 .log-item:last-child{margin-bottom:0;}
 .log-ico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
 .log-ico.in{background:rgba(16,217,138,0.1);}
@@ -75,15 +94,18 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;padding:28px 1
 .dur-bar{margin-top:10px;padding:11px 13px;background:rgba(79,142,247,0.06);border:1px solid rgba(79,142,247,0.15);border-radius:10px;display:flex;align-items:center;justify-content:space-between;}
 .dur-lbl{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:1px;text-transform:uppercase;}
 .dur-val{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;color:var(--accent);}
+
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(90px);z-index:200;min-width:260px;max-width:320px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px 16px;display:flex;align-items:center;gap:11px;box-shadow:0 20px 60px rgba(0,0,0,0.6);transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);opacity:0;}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
 .t-icon{font-size:20px;flex-shrink:0;}.t-title{font-weight:700;font-size:14px;}.t-body{font-size:12px;color:var(--muted);margin-top:1px;}
 </style>
 </head>
 <body>
+
 <div class="loading-overlay" id="loading-overlay">
   <div class="spinner"></div>
   <div class="loading-msg" id="loading-msg">Loading employees...</div>
+  <div class="loading-step" id="loading-step">Connecting to database</div>
 </div>
 
 <header class="header">
@@ -98,6 +120,7 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;padding:28px 1
   </div>
 
   <div class="card">
+    <!-- Employee selector -->
     <div class="sec">
       <label class="field-lbl">Your Name</label>
       <select class="emp-sel" id="emp-sel" onchange="onEmpChange()">
@@ -105,27 +128,40 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;padding:28px 1
       </select>
     </div>
 
+    <!-- Current shift status (shown after selecting name) -->
+    <div class="status-bar" id="status-bar">
+      <div class="status-dot" id="status-dot"></div>
+      <div>
+        <div class="status-text" id="status-text">—</div>
+        <div class="status-sub" id="status-sub">—</div>
+      </div>
+    </div>
+
+    <!-- GPS -->
     <div class="gps-row">
       <div class="gps-block" onclick="checkGPS()">
         <div class="gps-ico" id="gps-ico">📍</div>
         <div class="gps-info">
           <div class="gps-ttl" id="gps-ttl">Verify Location</div>
-          <div class="gps-sub" id="gps-sub">Tap to check your GPS position</div>
+          <div class="gps-sub" id="gps-sub-el">Tap to check your GPS position</div>
         </div>
         <div class="gps-chip g-idle" id="gps-chip">Tap</div>
       </div>
     </div>
 
+    <!-- Action buttons -->
     <div class="btns">
       <button class="abtn abtn-gps" id="btn-gps" onclick="checkGPS()">📍 Verify My Location First</button>
-      <button class="abtn abtn-in" id="btn-in" disabled onclick="doAction('in')">✅ Clock In — Start Work</button>
+      <button class="abtn abtn-in"  id="btn-in"  disabled onclick="doAction('in')">✅ Clock In — Start Work</button>
       <button class="abtn abtn-out" id="btn-out" disabled onclick="doAction('out')">🔴 Clock Out — End Shift</button>
     </div>
 
+    <!-- Saving indicator -->
     <div class="saving-row" id="saving-row">
       <div class="mini-spin"></div> Saving to database...
     </div>
 
+    <!-- Today's log -->
     <div class="log-wrap">
       <div class="log-hdr">Today's Activity</div>
       <div id="log-body"><div class="log-empty">Select your name to see activity.</div></div>
@@ -139,226 +175,343 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;padding:28px 1
 </div>
 
 <script>
-// Replace the old SheetDB URL with your new Google Web App URL
+// ═══════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════
+const API       = 'https://script.google.com/macros/s/AKfycbxujC6iR84CUTQ3kIgvvIQMnWUO8JySgZhZHyKYr0Jm9sNDQz6g6PoC73hPje_UZD1Mdg/exec';
+const WORK_LAT  = 31.95779990875444;
+const WORK_LNG  = 35.860622007596;
+const RADIUS_M  = 50;
 
-const API = 'https://script.google.com/macros/s/AKfycbxujC6iR84CUTQ3kIgvvIQMnWUO8JySgZhZHyKYr0Jm9sNDQz6g6PoC73hPje_UZD1Mdg/exec';
-const WORK_LAT = 31.95779990875444;
-const WORK_LNG = 35.860622007596;
-const RADIUS_M = 50;
+// ═══════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════
+let employees = [];
+let todayLogs  = [];   // ← loaded fresh from API on every page open
+let gps        = { ok: false, lat: null, lng: null, dist: null };
+let busy       = false;
 
-let employees = [], todayLogs = [];
-let gps = {ok:false,lat:null,lng:null,dist:null};
-let busy = false;
-
-function tick(){
-  const n=new Date();
-  document.getElementById('clk-time').textContent=n.toLocaleTimeString('en-US',{hour12:false});
-  document.getElementById('clk-date').textContent=n.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'}).toUpperCase();
+// ═══════════════════════════════════════════
+// CLOCK
+// ═══════════════════════════════════════════
+function tick() {
+  const n = new Date();
+  document.getElementById('clk-time').textContent = n.toLocaleTimeString('en-US', { hour12: false });
+  document.getElementById('clk-date').textContent = n.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' }).toUpperCase();
 }
-setInterval(tick,1000);tick();
+setInterval(tick, 1000);
+tick();
 
-const todayStr=()=>new Date().toISOString().split('T')[0];
-const nowTime=()=>new Date().toLocaleTimeString('en-US',{hour12:false});
+const todayStr = () => new Date().toISOString().split('T')[0];
+const nowTime  = () => new Date().toLocaleTimeString('en-US', { hour12: false });
 
-function haversineM(a,b,c,d){
-  const R=6371000,dL=(c-a)*Math.PI/180,dN=(d-b)*Math.PI/180;
-  const x=Math.sin(dL/2)**2+Math.cos(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.sin(dN/2)**2;
-  return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
+function haversineM(a, b, c, d) {
+  const R = 6371000, dL = (c-a)*Math.PI/180, dN = (d-b)*Math.PI/180;
+  const x = Math.sin(dL/2)**2 + Math.cos(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.sin(dN/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(x), Math.sqrt(1-x));
 }
 
-// ── API READ (sheet in URL query)
-async function apiGet(sheet){
-  const res=await fetch(`${API}?sheet=${sheet}`);
-  if(!res.ok) throw new Error(`HTTP ${res.status}`);
-  const d=await res.json();
-  return Array.isArray(d)?d:[];
+// ═══════════════════════════════════════════
+// API HELPERS
+// ═══════════════════════════════════════════
+
+// READ — Google Apps Script handles GET with ?sheet= param
+async function apiGet(sheet) {
+  const res = await fetch(`${API}?sheet=${sheet}`, { cache: 'no-store' });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const d = await res.json();
+  return Array.isArray(d) ? d : [];
 }
 
-// ── API WRITE (sheet inside JSON body) ✅ FIXED
+// WRITE — no-cors because Google Apps Script redirects cause CORS errors
+// Data IS saved even though response is opaque
 async function apiPost(record, sheet) {
-  // We add the sheet name to the URL as a parameter for Google Apps Script
-  const url = `${API}?sheet=${sheet}`; 
-  
-  const payload = { data: [record] };
-  
-  // Google Apps Script requires 'no-cors' mode or specific redirect handling
-  const res = await fetch(url, {
-    method: 'POST',
-    mode: 'no-cors', // This prevents the 'Failed to fetch' CORS error
-    headers: {
-      'Content-Type': 'text/plain;charset=utf-8', // Use text/plain to avoid pre-flight checks
-    },
-    body: JSON.stringify(payload)
+  await fetch(`${API}?sheet=${sheet}`, {
+    method:  'POST',
+    mode:    'no-cors',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body:    JSON.stringify({ data: [record] })
   });
-
-  // NOTE: With 'no-cors', we cannot read the response body (it will be 'opaque').
-  // But the data WILL be saved to your Google Sheet successfully.
-  return { result: "success" }; 
+  // no-cors = opaque response, we can't read it — but the write succeeds
 }
 
-async function init(){
-  try{
+// ═══════════════════════════════════════════
+// INIT  ← THE KEY FIX IS HERE
+// Every time the page opens we fetch TODAY'S logs fresh from the server
+// so the employee's current state (clocked in / not) is always accurate
+// ═══════════════════════════════════════════
+async function init() {
+  setStep('Loading employees...');
+
+  try {
     employees = await apiGet('employees');
-    // This part is key: it pulls the newest logs from your Google Sheet
+    setStep(`${employees.length} employees loaded — fetching today's logs...`);
+  } catch(e) {
+    setStep('Could not load employees. Check your connection.');
+    employees = [];
+  }
+
+  try {
+    // ✅ THIS IS THE FIX: always load ALL logs on startup, filter to today
+    // This means reopening the page will always show the correct clock state
     const allLogs = await apiGet('logs');
     todayLogs = allLogs.filter(l => l.date === todayStr());
-    
-    populateSel();
-    document.getElementById('loading-overlay').style.display = 'none';
+    setStep(`${todayLogs.length} events today loaded ✓`);
   } catch(e) {
-    document.getElementById('loading-msg').textContent = 'Sync Error - Try Refreshing';
+    setStep('Could not load attendance logs.');
+    todayLogs = [];
   }
+
+  populateSel();
+  document.getElementById('loading-overlay').style.display = 'none';
 }
 
-function populateSel(){
-  const s=document.getElementById('emp-sel');
-  if(!employees.length){s.innerHTML='<option value="">— No employees found —</option>';return;}
-  s.innerHTML='<option value="">— Choose your name —</option>'+
-    employees.map(e=>`<option value="${e.id}">${e.name}${e.role?' · '+e.role:''}</option>`).join('');
+function setStep(msg) {
+  document.getElementById('loading-step').textContent = msg;
+}
+
+// ═══════════════════════════════════════════
+// EMPLOYEE SELECT
+// ═══════════════════════════════════════════
+function populateSel() {
+  const s = document.getElementById('emp-sel');
+  if (!employees.length) {
+    s.innerHTML = '<option value="">— No employees found —</option>';
+    return;
+  }
+  s.innerHTML = '<option value="">— Choose your name —</option>' +
+    employees.map(e => `<option value="${e.id}">${e.name}${e.role ? ' · ' + e.role : ''}</option>`).join('');
 }
 
 function onEmpChange() {
-  const id = document.getElementById('emp-sel').value;
-  
-  // 1. Reset GPS check if a new employee is selected
-  // (Optional, but safer for accuracy)
-  
-  // 2. Update the buttons based on the data we already have in 'todayLogs'
   updateBtns();
-  
-  // 3. Show the history list for this specific person
   renderLog();
-  
-  // 4. Visual feedback
-  if (id) {
-    toast('Employee Selected', 'GPS verification required to proceed.', 'ok');
+  renderStatusBar();
+}
+
+// ═══════════════════════════════════════════
+// STATUS BAR — shows current shift state clearly
+// ═══════════════════════════════════════════
+function renderStatusBar() {
+  const id  = document.getElementById('emp-sel').value;
+  const bar = document.getElementById('status-bar');
+
+  if (!id) { bar.classList.remove('show'); return; }
+
+  bar.classList.add('show');
+
+  const ml   = todayLogs.filter(l => String(l.empId) === String(id));
+  const last  = ml.length ? ml[ml.length - 1] : null;
+  const inL   = ml.find(l => l.type === 'in');
+  const outL  = ml.find(l => l.type === 'out');
+  const dot   = document.getElementById('status-dot');
+  const text  = document.getElementById('status-text');
+  const sub   = document.getElementById('status-sub');
+
+  if (!last) {
+    dot.className  = 'status-dot none';
+    text.textContent = 'Not clocked in today';
+    sub.textContent  = 'Verify location then clock in';
+  } else if (last.type === 'in') {
+    dot.className  = 'status-dot working';
+    text.textContent = '● Currently Working';
+    sub.textContent  = `Clocked in at ${inL.time} — verify location to clock out`;
+  } else {
+    dot.className  = 'status-dot out';
+    text.textContent = 'Shift complete for today';
+    sub.textContent  = `${inL ? inL.time : '—'} → ${outL ? outL.time : '—'}`;
   }
 }
-function checkGPS(){
+
+// ═══════════════════════════════════════════
+// GPS
+// ═══════════════════════════════════════════
+function checkGPS() {
   setGPS('🔄','Checking...','Requesting GPS permission','g-chk','Wait...');
-  if(!navigator.geolocation){setGPS('❌','Not supported','Use a modern browser','g-err','Error');return;}
-  navigator.geolocation.getCurrentPosition(pos=>{
-    const{latitude:lat,longitude:lng}=pos.coords;
-    const dist=Math.round(haversineM(lat,lng,WORK_LAT,WORK_LNG));
-    gps={ok:dist<=RADIUS_M,lat,lng,dist};
-    if(gps.ok){
-      setGPS('✅','Location Verified',`${dist}m from workplace — within range`,'g-ok',`✓ ${dist}m`);
-      document.getElementById('btn-gps').style.display='none';
-      toast('📍 In Range!',`${dist}m from workplace`,'ok');
-    }else{
-      setGPS('🚫','Too Far Away',`${dist}m away — must be within ${RADIUS_M}m`,'g-far',`${dist}m`);
-      toast('🚫 Too Far',`${dist}m away. Must be ≤${RADIUS_M}m.`,'err');
-    }
-    updateBtns();
-  },err=>{
-    const m={1:'Permission denied — allow location',2:'Position unavailable',3:'Timed out'};
-    setGPS('❌','Location Error',m[err.code]||'Unknown error','g-err','Error');
-    gps={ok:false};updateBtns();
-  },{timeout:12000,enableHighAccuracy:true});
+  if (!navigator.geolocation) {
+    setGPS('❌','Not supported','Use a modern browser','g-err','Error');
+    return;
+  }
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      const { latitude: lat, longitude: lng } = pos.coords;
+      const dist = Math.round(haversineM(lat, lng, WORK_LAT, WORK_LNG));
+      gps = { ok: dist <= RADIUS_M, lat, lng, dist };
+      if (gps.ok) {
+        setGPS('✅','Location Verified',`${dist}m from workplace — within range`,'g-ok',`✓ ${dist}m`);
+        document.getElementById('btn-gps').style.display = 'none';
+        toast('📍 In Range!', `${dist}m from workplace`, 'ok');
+      } else {
+        setGPS('🚫','Too Far Away',`${dist}m away — must be within ${RADIUS_M}m`,'g-far',`${dist}m`);
+        toast('🚫 Too Far', `${dist}m away. Must be ≤${RADIUS_M}m.`, 'err');
+      }
+      updateBtns();
+    },
+    err => {
+      const m = { 1:'Permission denied — allow location', 2:'Position unavailable', 3:'Timed out' };
+      setGPS('❌','Location Error', m[err.code]||'Unknown error','g-err','Error');
+      gps = { ok: false };
+      updateBtns();
+    },
+    { timeout: 12000, enableHighAccuracy: true }
+  );
 }
 
-function setGPS(ico,ttl,sub,cls,chip){
-  document.getElementById('gps-ico').textContent=ico;
-  document.getElementById('gps-ttl').textContent=ttl;
-  document.getElementById('gps-sub').textContent=sub;
-  const c=document.getElementById('gps-chip');c.textContent=chip;c.className='gps-chip '+cls;
+function setGPS(ico, ttl, sub, cls, chip) {
+  document.getElementById('gps-ico').textContent     = ico;
+  document.getElementById('gps-ttl').textContent     = ttl;
+  document.getElementById('gps-sub-el').textContent  = sub;
+  const c = document.getElementById('gps-chip');
+  c.textContent = chip;
+  c.className   = 'gps-chip ' + cls;
 }
 
-function updateBtns(){
-  const id = document.getElementById('emp-sel').value;
+// ═══════════════════════════════════════════
+// BUTTON STATE
+// ─────────────────────────────────────────
+// Logic uses todayLogs (loaded fresh from API on every page open)
+// so the state is ALWAYS correct even after closing and reopening
+// ═══════════════════════════════════════════
+function updateBtns() {
+  const id  = document.getElementById('emp-sel').value;
   const can = gps.ok && id;
-  
-  // Get all logs for the selected employee today
-  const ml = todayLogs.filter(l => String(l.empId) === String(id));
-  
-  // Find the most recent event
-  const last = ml.length ? ml[ml.length - 1] : null;
-  
-  // Logic: 
-  // If last action was 'in', they are currently working (can only 'out')
-  // If last action was 'out' OR no actions yet, they are away (can only 'in')
-  const isCurrentlyWorking = last && last.type === 'in';
 
-  // Update button states
-  document.getElementById('btn-in').disabled = !can || isCurrentlyWorking;
-  document.getElementById('btn-out').disabled = !can || !isCurrentlyWorking;
+  // Get this employee's logs for today, sorted oldest→newest
+  const ml   = todayLogs
+    .filter(l => String(l.empId) === String(id))
+    .sort((a, b) => a.time.localeCompare(b.time));
 
-  // Update button text for better UX
-  document.getElementById('btn-in').textContent = isCurrentlyWorking 
-    ? '✅ Currently Working' 
-    : '✅ Clock In — Start Work';
-    
-  document.getElementById('btn-out').textContent = isCurrentlyWorking 
-    ? '🔴 Clock Out — End Shift' 
-    : '🔴 Already Clocked Out';
+  const last      = ml.length ? ml[ml.length - 1] : null;
+  const isWorking = last && last.type === 'in';   // last action was clock-in → currently working
+  const isDone    = last && last.type === 'out';  // last action was clock-out → shift finished
+
+  const btnIn  = document.getElementById('btn-in');
+  const btnOut = document.getElementById('btn-out');
+
+  // Enable/disable
+  btnIn.disabled  = !can || isWorking || isDone;
+  btnOut.disabled = !can || !isWorking;
+
+  // Labels
+  btnIn.textContent  = isDone    ? '✅ Shift Complete'
+                     : isWorking ? '✅ Currently Working'
+                                 : '✅ Clock In — Start Work';
+  btnOut.textContent = isDone    ? '🔴 Already Clocked Out'
+                                 : '🔴 Clock Out — End Shift';
 }
 
-async function doAction(type){
-  if(busy)return;
-  const id=document.getElementById('emp-sel').value;
-  if(!id||!gps.ok)return;
-  const emp=employees.find(e=>String(e.id)===String(id));
-  if(!emp)return;
-  busy=true;
-  document.getElementById('saving-row').classList.add('on');
-  document.getElementById('btn-in').disabled=true;
-  document.getElementById('btn-out').disabled=true;
+// ═══════════════════════════════════════════
+// CLOCK ACTION
+// ═══════════════════════════════════════════
+async function doAction(type) {
+  if (busy) return;
+  const id  = document.getElementById('emp-sel').value;
+  if (!id || !gps.ok) return;
+  const emp = employees.find(e => String(e.id) === String(id));
+  if (!emp) return;
 
-  const rec={
-    id:Date.now().toString(),
-    empId:String(emp.id),
-    empName:emp.name,
+  busy = true;
+  document.getElementById('saving-row').classList.add('on');
+  document.getElementById('btn-in').disabled  = true;
+  document.getElementById('btn-out').disabled = true;
+
+  const rec = {
+    id:      Date.now().toString(),
+    empId:   String(emp.id),
+    empName: emp.name,
     type,
-    date:todayStr(),
-    time:nowTime(),
-    lat:String(gps.lat.toFixed(6)),
-    lng:String(gps.lng.toFixed(6)),
-    dist:String(gps.dist)
+    date:    todayStr(),
+    time:    nowTime(),
+    lat:     String(gps.lat.toFixed(6)),
+    lng:     String(gps.lng.toFixed(6)),
+    dist:    String(gps.dist)
   };
 
-  try{
-    // ✅ FIXED: sheet goes inside JSON body, not URL
-    await apiPost(rec,'logs');
-    todayLogs.push(rec);
-    toast(type==='in'?'✅ Clocked In!':'🔴 Clocked Out!',`${emp.name} — ${rec.time}`,type==='in'?'ok':'out');
+  try {
+    await apiPost(rec, 'logs');
+    todayLogs.push(rec);   // add to local state immediately
+    toast(
+      type === 'in' ? '✅ Clocked In!' : '🔴 Clocked Out!',
+      `${emp.name} — ${rec.time}`,
+      type === 'in' ? 'ok' : 'out'
+    );
     renderLog();
-  }catch(e){
-    toast('⚠️ Save Failed',`Could not save: ${e.message.slice(0,60)}`,'err');
+    renderStatusBar();
+  } catch(e) {
+    toast('⚠️ Save Failed', `Could not save: ${e.message.slice(0,60)}`, 'err');
   }
 
-  busy=false;
+  busy = false;
   document.getElementById('saving-row').classList.remove('on');
   updateBtns();
 }
 
-function renderLog(){
-  const id=document.getElementById('emp-sel').value;
-  const body=document.getElementById('log-body');
-  if(!id){body.innerHTML='<div class="log-empty">Select your name to see activity.</div>';return;}
-  const ml=todayLogs.filter(l=>String(l.empId)===String(id));
-  if(!ml.length){body.innerHTML='<div class="log-empty">No activity yet. Clock in to start!</div>';return;}
-  let html=ml.map(l=>`<div class="log-item"><div class="log-ico ${l.type}">${l.type==='in'?'🟢':'🔴'}</div><div class="log-content"><div class="log-act">${l.type==='in'?'Clocked In':'Clocked Out'}</div><div class="log-detail">${l.dist}m from workplace</div></div><div class="log-tc ${l.type}">${l.time}</div></div>`).join('');
-  const inL=ml.find(l=>l.type==='in'),outL=ml.find(l=>l.type==='out');
-  if(inL&&outL){
-    const[ih,im]=inL.time.split(':').map(Number),[oh,om]=outL.time.split(':').map(Number);
-    let mins=(oh*60+om)-(ih*60+im);if(mins<0)mins+=1440;
-    const h=Math.floor(mins/60),m=mins%60;
-    html+=`<div class="dur-bar"><span class="dur-lbl">Total Today</span><span class="dur-val">${h}h${m?` ${m}m`:''}</span></div>`;
+// ═══════════════════════════════════════════
+// RENDER LOG
+// ═══════════════════════════════════════════
+function renderLog() {
+  const id   = document.getElementById('emp-sel').value;
+  const body = document.getElementById('log-body');
+
+  if (!id) {
+    body.innerHTML = '<div class="log-empty">Select your name to see activity.</div>';
+    return;
   }
-  body.innerHTML=html;
+
+  const ml = todayLogs
+    .filter(l => String(l.empId) === String(id))
+    .sort((a, b) => a.time.localeCompare(b.time));
+
+  if (!ml.length) {
+    body.innerHTML = '<div class="log-empty">No activity yet. Clock in to start!</div>';
+    return;
+  }
+
+  let html = ml.map(l => `
+    <div class="log-item">
+      <div class="log-ico ${l.type}">${l.type === 'in' ? '🟢' : '🔴'}</div>
+      <div class="log-content">
+        <div class="log-act">${l.type === 'in' ? 'Clocked In' : 'Clocked Out'}</div>
+        <div class="log-detail">${l.dist}m from workplace</div>
+      </div>
+      <div class="log-tc ${l.type}">${l.time}</div>
+    </div>`).join('');
+
+  const inL  = ml.find(l => l.type === 'in');
+  const outL = ml.find(l => l.type === 'out');
+  if (inL && outL) {
+    const [ih, im] = inL.time.split(':').map(Number);
+    const [oh, om] = outL.time.split(':').map(Number);
+    let mins = (oh*60+om) - (ih*60+im);
+    if (mins < 0) mins += 1440;
+    const h = Math.floor(mins/60), m = mins%60;
+    html += `<div class="dur-bar">
+      <span class="dur-lbl">Total Today</span>
+      <span class="dur-val">${h}h${m ? ` ${m}m` : ''}</span>
+    </div>`;
+  }
+
+  body.innerHTML = html;
 }
 
+// ═══════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════
 let toastT;
-function toast(title,body,type){
-  const icons={ok:'✅',out:'🔴',err:'⚠️'};
-  document.getElementById('t-icon').textContent=icons[type]||'ℹ️';
-  document.getElementById('t-title').textContent=title;
-  document.getElementById('t-body').textContent=body;
-  const el=document.getElementById('toast');
-  el.classList.add('show');clearTimeout(toastT);
-  toastT=setTimeout(()=>el.classList.remove('show'),3500);
+function toast(title, body, type) {
+  const icons = { ok:'✅', out:'🔴', err:'⚠️' };
+  document.getElementById('t-icon').textContent  = icons[type] || 'ℹ️';
+  document.getElementById('t-title').textContent = title;
+  document.getElementById('t-body').textContent  = body;
+  const el = document.getElementById('toast');
+  el.classList.add('show');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => el.classList.remove('show'), 3500);
 }
 
+// ═══════════════════════════════════════════
+// START
+// ═══════════════════════════════════════════
 init();
 </script>
 </body>
