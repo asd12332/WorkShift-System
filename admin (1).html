@@ -237,8 +237,6 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:1px;backgroun
 </div>
 
 <script>
-// Replace the old SheetDB URL with your new Google Web App URL
-
 const API = 'https://script.google.com/macros/s/AKfycbxujC6iR84CUTQ3kIgvvIQMnWUO8JySgZhZHyKYr0Jm9sNDQz6g6PoC73hPje_UZD1Mdg/exec';
 let employees = [], allLogs = [], debugOpen = false;
 const initials = n => (n||'?').split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
@@ -267,7 +265,7 @@ function toggleDebug(){debugOpen=!debugOpen;document.getElementById('debug-box')
 async function apiGet(sheet) {
   const url = `${API}?sheet=${sheet}`;
   dlog('info',`GET ${url}`);
-  const res = await fetch(url);
+  const res = await fetch(url, { cache: 'no-store' });
   const text = await res.text();
   dlog(res.ok?'ok':'err',`${res.status} → ${text.slice(0,100)}`);
   if(!res.ok) throw new Error(`${res.status}: ${text.slice(0,200)}`);
@@ -277,25 +275,20 @@ async function apiGet(sheet) {
 
 // CREATE — sheet goes INSIDE JSON body  ✅
 async function apiPost(record, sheet) {
-  // We add the sheet name to the URL as a parameter for Google Apps Script
-  const url = `${API}?sheet=${sheet}`; 
-  
-  const payload = { data: [record] };
-  
-  // Google Apps Script requires 'no-cors' mode or specific redirect handling
-  const res = await fetch(url, {
+  // Google Apps Script requires no-cors; sheet goes in URL param
+  const url = `${API}?sheet=${sheet}`;
+  dlog('info',`POST ${url} | data=${JSON.stringify(record).slice(0,100)}`);
+  await fetch(url, {
     method: 'POST',
-    mode: 'no-cors', // This prevents the 'Failed to fetch' CORS error
-    headers: {
-      'Content-Type': 'text/plain;charset=utf-8', // Use text/plain to avoid pre-flight checks
-    },
-    body: JSON.stringify(payload)
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({ data: [record] })
   });
-
-  // NOTE: With 'no-cors', we cannot read the response body (it will be 'opaque').
-  // But the data WILL be saved to your Google Sheet successfully.
-  return { result: "success" }; 
+  // no-cors = opaque response, can't read it — but write succeeds
+  dlog('ok', 'POST sent (no-cors, opaque response)');
+  return { result: 'success' };
 }
+
 // DELETE — sheet goes in URL as query param  ✅
 async function apiDel(id, sheet) {
   const url = `${API}/id/${id}?sheet=${sheet}`;
