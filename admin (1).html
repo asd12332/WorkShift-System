@@ -237,7 +237,9 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:1px;backgroun
 </div>
 
 <script>
-const API = 'https://sheetdb.io/api/v1/f88bycrvwfczq';
+// Replace the old SheetDB URL with your new Google Web App URL
+
+const API = 'https://script.google.com/macros/s/AKfycbwo8w-45kxSyk77vfwCVZnU7pFEmv9jPZKGXRAvyqPwtxgQC5qedGnF7KTIWgT0fkwVfg/exec';
 let employees = [], allLogs = [], debugOpen = false;
 const initials = n => (n||'?').split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
 const cv = i => 'cv'+(i%6);
