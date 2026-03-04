@@ -296,11 +296,6 @@ async function apiPost(record, sheet) {
   // But the data WILL be saved to your Google Sheet successfully.
   return { result: "success" }; 
 }
-
-  const text = await res.text();
-  if(!res.ok) throw new Error(`${res.status}: ${text}`);
-  return JSON.parse(text);
-}
 // DELETE — sheet goes in URL as query param  ✅
 async function apiDel(id, sheet) {
   const url = `${API}/id/${id}?sheet=${sheet}`;
