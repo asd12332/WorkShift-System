@@ -247,16 +247,32 @@ function setGPS(ico,ttl,sub,cls,chip){
 }
 
 function updateBtns(){
-  const id=document.getElementById('emp-sel').value;
-  const can=gps.ok&&id;
-  const ml=todayLogs.filter(l=>String(l.empId)===String(id));
-  const last=ml.length?ml[ml.length-1]:null;
-  const isIn=last&&last.type==='in';
-  const isDone=last&&last.type==='out';
-  document.getElementById('btn-in').disabled=!can||isIn||isDone;
-  document.getElementById('btn-out').disabled=!can||!isIn||isDone;
-  document.getElementById('btn-in').textContent=isDone?'✅ Shift Complete':isIn?'✅ Currently Working':'✅ Clock In — Start Work';
-  document.getElementById('btn-out').textContent=isDone?'🔴 Already Clocked Out':'🔴 Clock Out — End Shift';
+  const id = document.getElementById('emp-sel').value;
+  const can = gps.ok && id;
+  
+  // Get all logs for the selected employee today
+  const ml = todayLogs.filter(l => String(l.empId) === String(id));
+  
+  // Find the most recent event
+  const last = ml.length ? ml[ml.length - 1] : null;
+  
+  // Logic: 
+  // If last action was 'in', they are currently working (can only 'out')
+  // If last action was 'out' OR no actions yet, they are away (can only 'in')
+  const isCurrentlyWorking = last && last.type === 'in';
+
+  // Update button states
+  document.getElementById('btn-in').disabled = !can || isCurrentlyWorking;
+  document.getElementById('btn-out').disabled = !can || !isCurrentlyWorking;
+
+  // Update button text for better UX
+  document.getElementById('btn-in').textContent = isCurrentlyWorking 
+    ? '✅ Currently Working' 
+    : '✅ Clock In — Start Work';
+    
+  document.getElementById('btn-out').textContent = isCurrentlyWorking 
+    ? '🔴 Clock Out — End Shift' 
+    : '🔴 Already Clocked Out';
 }
 
 async function doAction(type){
