@@ -19,23 +19,12 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:1px;backgroun
 .icon-btn:hover{border-color:var(--accent);color:var(--accent);}
 @keyframes spin{to{transform:rotate(360deg)}}
 .spin-icon{display:inline-block;animation:spin 0.8s linear infinite;}
-
-/* SETUP BANNER */
-.setup-banner{margin:18px 24px 0;background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.3);border-radius:12px;padding:16px 20px;display:none;}
-.setup-banner.show{display:block;}
-.setup-title{font-size:14px;font-weight:700;color:var(--amber);margin-bottom:10px;}
-.setup-body{font-size:13px;line-height:1.8;}
-.setup-body code{background:rgba(255,255,255,0.1);padding:1px 7px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#93c5fd;}
-.setup-body ol{padding-left:20px;margin-top:8px;}
-.close-banner{float:right;background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;line-height:1;}
-
 .wrap{max-width:1400px;margin:0 auto;padding:24px;}
 .top-bar{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px;flex-wrap:wrap;gap:14px;}
 .page-title{font-size:24px;font-weight:800;letter-spacing:-0.5px;}
 .page-sub{font-size:13px;color:var(--muted);margin-top:3px;}
 .date-filter{background:var(--card);border:1px solid var(--border);color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;padding:9px 14px;border-radius:9px;outline:none;cursor:pointer;}
 .date-filter:focus{border-color:var(--accent);}
-
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
 .stat{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:20px;position:relative;overflow:hidden;}
 .stat::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
@@ -46,7 +35,6 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:1px;backgroun
 .stat-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:8px;}
 .stat-n{font-size:34px;font-weight:800;line-height:1;}
 .stat-s{font-size:12px;color:var(--muted);margin-top:4px;}
-
 .grid2{display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:start;}
 .box{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:20px;}
 .box-head{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
@@ -54,8 +42,6 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:1px;backgroun
 .badge{font-size:11px;padding:3px 9px;border-radius:20px;font-weight:600;}
 .b-green{background:rgba(16,185,129,0.12);color:var(--green);}
 .b-muted{background:rgba(100,116,139,0.1);color:var(--muted);}
-.b-amber{background:rgba(245,158,11,0.12);color:var(--amber);}
-
 .tbl{width:100%;border-collapse:collapse;font-size:13px;}
 .tbl th{padding:9px 16px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-align:left;border-bottom:1px solid var(--border);background:var(--surface);white-space:nowrap;}
 .tbl td{padding:12px 16px;border-bottom:1px solid rgba(31,41,55,0.5);vertical-align:middle;}
@@ -73,7 +59,6 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:1px;backgroun
 .dur-wrap{display:flex;align-items:center;gap:8px;}
 .dur-track{width:48px;height:3px;background:var(--border);border-radius:2px;overflow:hidden;flex-shrink:0;}
 .dur-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--accent),var(--green));}
-
 .emp-form{padding:16px 20px;display:flex;flex-direction:column;gap:10px;border-bottom:1px solid var(--border);}
 .fi{background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;padding:10px 14px;border-radius:8px;outline:none;width:100%;transition:border-color 0.2s;}
 .fi:focus{border-color:var(--accent);}
@@ -84,7 +69,6 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:1px;backgroun
 .mini-spin{width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin 0.7s linear infinite;display:none;flex-shrink:0;}
 .add-btn.loading .mini-spin{display:block;}
 .add-btn.loading .btn-label{display:none;}
-
 .emp-ul{list-style:none;}
 .emp-li{display:flex;align-items:center;gap:10px;padding:12px 20px;border-bottom:1px solid rgba(31,41,55,0.5);transition:background 0.15s;}
 .emp-li:last-child{border-bottom:none;}
@@ -94,7 +78,6 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:1px;backgroun
 .emp-role{font-size:11px;color:var(--muted);margin-top:1px;}
 .del-btn{width:26px;height:26px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:15px;transition:all 0.2s;display:flex;align-items:center;justify-content:center;}
 .del-btn:hover{border-color:var(--red);color:var(--red);}
-
 .feed-ul{list-style:none;max-height:280px;overflow-y:auto;}
 .feed-li{display:flex;align-items:center;gap:11px;padding:11px 20px;border-bottom:1px solid rgba(31,41,55,0.4);font-size:12px;}
 .feed-li:last-child{border-bottom:none;}
@@ -103,34 +86,22 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:1px;backgroun
 .fdot.out{background:var(--red);box-shadow:0 0 6px var(--red);}
 .fb{flex:1;}.fn{font-weight:600;}.fa{color:var(--muted);}
 .ft{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);white-space:nowrap;}
-
 .loc-rows{padding:16px 20px;}
 .loc-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(31,41,55,0.5);}
 .loc-row:last-child{border-bottom:none;}
 .loc-k{font-size:12px;color:var(--muted);}
 .loc-v{font-size:13px;font-weight:600;}
-
-.debug-log{padding:14px 20px;max-height:220px;overflow-y:auto;font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.9;background:var(--surface);}
-.dl-ok{color:var(--green);}
-.dl-err{color:var(--red);}
-.dl-info{color:var(--muted);}
-.dl-warn{color:var(--amber);}
-
 .empty{padding:32px;text-align:center;color:var(--muted);font-size:13px;}
 .empty-i{font-size:30px;margin-bottom:8px;}
-
 .notif{position:fixed;bottom:24px;right:24px;z-index:200;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 20px 60px rgba(0,0,0,0.5);transform:translateY(90px);opacity:0;transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);max-width:340px;}
 .notif.show{transform:translateY(0);opacity:1;}
 .ni{font-size:22px;flex-shrink:0;}.nt{font-weight:700;font-size:14px;}.nb{font-size:12px;color:var(--muted);margin-top:1px;}
-
 .page-loader{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;}
 .page-spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;}
 .loader-txt{font-size:13px;color:var(--muted);}
-
 .cv0{background:rgba(99,102,241,0.2);color:#a5b4fc;}.cv1{background:rgba(16,185,129,0.2);color:#6ee7b7;}
 .cv2{background:rgba(245,158,11,0.2);color:#fcd34d;}.cv3{background:rgba(239,68,68,0.2);color:#fca5a5;}
 .cv4{background:rgba(168,85,247,0.2);color:#c4b5fd;}.cv5{background:rgba(236,72,153,0.2);color:#f9a8d4;}
-
 @media(max-width:1000px){.grid2{grid-template-columns:1fr;}}
 @media(max-width:700px){.stats{grid-template-columns:1fr 1fr;}.wrap{padding:14px;}}
 </style>
@@ -139,28 +110,21 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:1px;backgroun
 
 <div class="page-loader" id="page-loader">
   <div class="page-spinner"></div>
-  <div class="loader-txt" id="loader-txt">Connecting to Google Sheets...</div>
+  <div class="loader-txt" id="loader-txt">Connecting to Supabase...</div>
 </div>
 
 <nav class="nav">
   <div class="nav-logo"><div class="logo-box">📊</div>WorkShift Admin</div>
   <div class="nav-right">
     <div class="nav-clock" id="nav-clock">--:--:--</div>
-    <button class="icon-btn" onclick="toggleDebug()">🔧 Debug</button>
     <button class="icon-btn" id="refresh-btn" onclick="refreshAll()">↻ Refresh</button>
   </div>
 </nav>
 
-<div class="setup-banner" id="setup-banner">
-  <button class="close-banner" onclick="this.parentElement.classList.remove('show')">×</button>
-  <div class="setup-title">⚠️ Google Sheet Setup Required</div>
-  <div class="setup-body" id="setup-body"></div>
-</div>
-
 <div class="wrap">
   <div class="top-bar">
     <div><div class="page-title">Attendance Dashboard</div><div class="page-sub" id="page-sub">—</div></div>
-    <input type="date" class="date-filter" id="date-filter" onchange="renderAttendance()">
+    <input type="date" class="date-filter" id="date-filter" onchange="renderAll()">
   </div>
 
   <div class="stats">
@@ -184,15 +148,10 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:1px;backgroun
       <div class="box">
         <div class="box-head"><div class="box-title">All Clock Events</div><span class="badge b-muted" id="logs-count">0 events</span></div>
         <div style="overflow-x:auto;">
-          <table class="tbl"><thead><tr><th>Employee</th><th>Type</th><th>Time</th><th>Date</th><th>Distance</th></tr></thead>
+          <table class="tbl"><thead><tr><th>Employee</th><th>Type</th><th>Time</th><th>Distance</th></tr></thead>
           <tbody id="logs-body"></tbody></table>
         </div>
         <div class="empty" id="logs-empty" style="display:none;"><div class="empty-i">📡</div>No events yet.</div>
-      </div>
-
-      <div class="box" id="debug-box" style="display:none;">
-        <div class="box-head"><div class="box-title">🔧 API Debug Log</div><span class="badge b-amber">Live</span></div>
-        <div class="debug-log" id="debug-log"><div class="dl-info">No events yet...</div></div>
       </div>
     </div>
 
@@ -215,7 +174,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:1px;backgroun
       </div>
 
       <div class="box">
-        <div class="box-head"><div class="box-title">Live Feed</div><span class="badge b-green">● LIVE</span></div>
+        <div class="box-head"><div class="box-title">Live Feed — Today</div><span class="badge b-green">● LIVE</span></div>
         <ul class="feed-ul" id="feed-ul"><li class="empty"><div class="empty-i">📡</div>No activity yet.</li></ul>
       </div>
 
@@ -237,247 +196,274 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:1px;backgroun
 </div>
 
 <script>
-const API = 'https://script.google.com/macros/s/AKfycbxujC6iR84CUTQ3kIgvvIQMnWUO8JySgZhZHyKYr0Jm9sNDQz6g6PoC73hPje_UZD1Mdg/exec';
-let employees = [], allLogs = [], debugOpen = false;
+// ═══════════════════════════════════
+// SUPABASE CONFIG
+// ═══════════════════════════════════
+const SUPA_URL = 'https://ikyddvnjcshwpgfbdriy.supabase.co';
+const SUPA_KEY = 'sb_publishable_2MkhmYUU7GX6w8vqMXDVuw_kA4zPu5i';
+const HEADERS  = {
+  'Content-Type':  'application/json',
+  'apikey':        SUPA_KEY,
+  'Authorization': 'Bearer ' + SUPA_KEY,
+  'Prefer':        'return=minimal'
+};
+
+let employees = [], allLogs = [];
 const initials = n => (n||'?').split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
 const cv = i => 'cv'+(i%6);
 const todayStr = () => new Date().toISOString().split('T')[0];
-const fmtDate = d => { try{return new Date(d+'T12:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});}catch(e){return d;} };
+const fmtDate  = d => { try{return new Date(d+'T12:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});}catch(e){return d;} };
 
 // Clock
-function tickNav(){const n=new Date();document.getElementById('nav-clock').textContent=n.toLocaleTimeString('en-US',{hour12:false});document.getElementById('page-sub').textContent=n.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});}
-setInterval(tickNav,1000);tickNav();
-
-// Debug
-const dlogs=[];
-function dlog(type,msg){
-  const t=new Date().toLocaleTimeString('en-US',{hour12:false});
-  dlogs.unshift({type,msg,t});
-  document.getElementById('debug-log').innerHTML=dlogs.slice(0,50).map(l=>`<div class="dl-${l.type}">[${l.t}] ${l.msg}</div>`).join('');
+function tickNav(){
+  const n=new Date();
+  document.getElementById('nav-clock').textContent=n.toLocaleTimeString('en-US',{hour12:false});
+  document.getElementById('page-sub').textContent=n.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 }
-function toggleDebug(){debugOpen=!debugOpen;document.getElementById('debug-box').style.display=debugOpen?'':'none';}
+setInterval(tickNav,1000); tickNav();
 
-// ──────────────────────────────
-// CORE API FUNCTIONS
-// ──────────────────────────────
-
-// READ — sheet goes in URL as query param  ✅
-async function apiGet(sheet) {
-  const url = `${API}?sheet=${sheet}`;
-  dlog('info',`GET ${url}`);
-  const res = await fetch(url, { cache: 'no-store' });
-  const text = await res.text();
-  dlog(res.ok?'ok':'err',`${res.status} → ${text.slice(0,100)}`);
-  if(!res.ok) throw new Error(`${res.status}: ${text.slice(0,200)}`);
-  const parsed = JSON.parse(text);
-  return Array.isArray(parsed) ? parsed : [];
+// ═══════════════════════════════════
+// SUPABASE API
+// ═══════════════════════════════════
+async function sbGet(table, filters='') {
+  const res = await fetch(`${SUPA_URL}/rest/v1/${table}?select=*${filters}`, { headers: HEADERS });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
 }
 
-// CREATE — sheet goes INSIDE JSON body  ✅
-async function apiPost(record, sheet) {
-  // Google Apps Script requires no-cors; sheet goes in URL param
-  const url = `${API}?sheet=${sheet}`;
-  dlog('info',`POST ${url} | data=${JSON.stringify(record).slice(0,100)}`);
-  await fetch(url, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify({ data: [record] })
+async function sbInsert(table, record) {
+  const res = await fetch(`${SUPA_URL}/rest/v1/${table}`, {
+    method:'POST', headers: HEADERS, body: JSON.stringify(record)
   });
-  // no-cors = opaque response, can't read it — but write succeeds
-  dlog('ok', 'POST sent (no-cors, opaque response)');
-  return { result: 'success' };
+  if (!res.ok) throw new Error(await res.text());
 }
 
-// DELETE — sheet goes in URL as query param  ✅
-async function apiDel(id, sheet) {
-  const url = `${API}/id/${id}?sheet=${sheet}`;
-  dlog('info',`DELETE ${url}`);
-  const res = await fetch(url,{method:'DELETE'});
-  const text = await res.text();
-  dlog(res.ok?'ok':'err',`${res.status} → ${text}`);
-  return res.ok;
+async function sbDelete(table, id) {
+  const res = await fetch(`${SUPA_URL}/rest/v1/${table}?id=eq.${encodeURIComponent(id)}`, {
+    method:'DELETE', headers: HEADERS
+  });
+  if (!res.ok) throw new Error(await res.text());
 }
 
-// ──────────────────────────────
-// LOAD DATA
-// ──────────────────────────────
+// ═══════════════════════════════════
+// LOAD
+// ═══════════════════════════════════
 async function loadAll() {
-  try {
-    employees = await apiGet('employees');
-    dlog('ok',`Loaded ${employees.length} employees`);
-  } catch(e) {
-    dlog('err',`employees: ${e.message}`);
-    employees = [];
-    showSetup('employees');
-  }
-  try {
-    allLogs = await apiGet('logs');
-    dlog('ok',`Loaded ${allLogs.length} log entries`);
-  } catch(e) {
-    dlog('err',`logs: ${e.message}`);
-    allLogs = [];
-    showSetup('logs');
-  }
-}
-
-function showSetup(sheet) {
-  const el = document.getElementById('setup-banner');
-  el.classList.add('show');
-  document.getElementById('setup-body').innerHTML = `
-    Cannot read the <code>${sheet}</code> tab. Your Google Sheet needs two tabs with these exact names and columns:<br><br>
-    <strong>Tab 1 — name it:</strong> <code>employees</code><br>
-    Row 1 headers: <code>id</code> <code>name</code> <code>role</code> <code>dept</code><br><br>
-    <strong>Tab 2 — name it:</strong> <code>logs</code><br>
-    Row 1 headers: <code>id</code> <code>empId</code> <code>empName</code> <code>type</code> <code>date</code> <code>time</code> <code>lat</code> <code>lng</code> <code>dist</code><br><br>
-    After setting up, click <strong>Refresh</strong>.
-  `;
+  const [emps, logs] = await Promise.all([
+    sbGet('employees', '&order=name.asc'),
+    sbGet('logs', '&order=time.asc')
+  ]);
+  employees = emps;
+  allLogs   = logs;
 }
 
 async function init() {
-  await loadAll();
-  document.getElementById('date-filter').value = todayStr();
-  renderAll();
-  document.getElementById('page-loader').style.display='none';
+  try {
+    await loadAll();
+    document.getElementById('date-filter').value = todayStr();
+    renderAll();
+  } catch(e) {
+    document.getElementById('loader-txt').textContent = '❌ ' + e.message;
+    return;
+  }
+  document.getElementById('page-loader').style.display = 'none';
+  // Auto-refresh every 30s
+  setInterval(async () => { await loadAll(); renderAll(); }, 30000);
 }
 
 async function refreshAll() {
-  const btn=document.getElementById('refresh-btn');
-  btn.innerHTML='<span class="spin-icon">↻</span> Refresh';
-  await loadAll(); renderAll();
-  btn.innerHTML='↻ Refresh';
-  notify('✅ Refreshed','Data updated','ok');
+  const btn = document.getElementById('refresh-btn');
+  btn.innerHTML = '<span class="spin-icon">↻</span> Refresh';
+  try { await loadAll(); renderAll(); notify('✅ Refreshed','Data updated','ok'); }
+  catch(e) { notify('⚠️ Error', e.message.slice(0,80), 'err'); }
+  btn.innerHTML = '↻ Refresh';
 }
 
-function renderAll(){renderStats();renderAttendance();renderLogs();renderEmpList();renderFeed();}
-
-// ──────────────────────────────
-// RENDER FUNCTIONS
-// ──────────────────────────────
-function renderStats(){
-  const date=document.getElementById('date-filter').value||todayStr();
-  const dl=allLogs.filter(l=>l.date===date);
-  const inIds=[...new Set(dl.filter(l=>l.type==='in').map(l=>String(l.empId)))];
-  const outIds=[...new Set(dl.filter(l=>l.type==='out').map(l=>String(l.empId)))];
-  document.getElementById('s-total').textContent=employees.length;
-  document.getElementById('s-in').textContent=inIds.filter(id=>!outIds.includes(id)).length;
-  document.getElementById('s-done').textContent=outIds.length;
-  document.getElementById('s-abs').textContent=Math.max(0,employees.length-inIds.length);
-}
-
-function renderAttendance(){
-  const date=document.getElementById('date-filter').value||todayStr();
-  document.getElementById('att-date-badge').textContent=fmtDate(date);
+function renderAll() {
   renderStats();
-  const dl=allLogs.filter(l=>l.date===date);
-  const tbody=document.getElementById('att-body');
-  const empty=document.getElementById('att-empty');
-  if(!employees.length){tbody.innerHTML='';empty.style.display='';return;}
-  empty.style.display='none';
-  tbody.innerHTML=employees.map((emp,i)=>{
-    const el=dl.filter(l=>String(l.empId)===String(emp.id));
-    const inL=el.find(l=>l.type==='in'),outL=el.find(l=>l.type==='out');
-    let dur='—',pct=0;
-    if(inL&&outL){
-      const[ih,im]=inL.time.split(':').map(Number),[oh,om]=outL.time.split(':').map(Number);
-      let mins=(oh*60+om)-(ih*60+im);if(mins<0)mins+=1440;
-      const h=Math.floor(mins/60),m=mins%60;dur=m?`${h}h ${m}m`:`${h}h`;pct=Math.min(mins/480*100,100);
+  renderAttendance();
+  renderLogs();
+  renderEmpList();
+  renderFeed();
+}
+
+// ═══════════════════════════════════
+// STATS
+// ═══════════════════════════════════
+function renderStats() {
+  const date   = document.getElementById('date-filter').value || todayStr();
+  const dl     = allLogs.filter(l => l.date === date);
+  const empIds = [...new Set(dl.map(l => String(l.empId)))];
+
+  // For each employee who has logs today, find their LAST event
+  const working = empIds.filter(id => {
+    const ml   = dl.filter(l => String(l.empId) === id).sort((a,b) => a.time.localeCompare(b.time));
+    const last = ml[ml.length-1];
+    return last && last.type === 'in';
+  });
+  const done = empIds.filter(id => {
+    const ml   = dl.filter(l => String(l.empId) === id).sort((a,b) => a.time.localeCompare(b.time));
+    const last = ml[ml.length-1];
+    return last && last.type === 'out';
+  });
+
+  document.getElementById('s-total').textContent = employees.length;
+  document.getElementById('s-in').textContent    = working.length;
+  document.getElementById('s-done').textContent  = done.length;
+  document.getElementById('s-abs').textContent   = Math.max(0, employees.length - empIds.length);
+}
+
+// ═══════════════════════════════════
+// ATTENDANCE TABLE
+// Shows first clock-in and last clock-out for each employee
+// ═══════════════════════════════════
+function renderAttendance() {
+  const date  = document.getElementById('date-filter').value || todayStr();
+  document.getElementById('att-date-badge').textContent = fmtDate(date);
+  const dl    = allLogs.filter(l => l.date === date);
+  const tbody = document.getElementById('att-body');
+  const empty = document.getElementById('att-empty');
+
+  if (!employees.length) { tbody.innerHTML=''; empty.style.display=''; return; }
+  empty.style.display = 'none';
+
+  tbody.innerHTML = employees.map((emp, i) => {
+    const ml   = dl.filter(l => String(l.empId) === String(emp.id)).sort((a,b) => a.time.localeCompare(b.time));
+    const last = ml.length ? ml[ml.length-1] : null;
+    const inL  = ml.find(l => l.type === 'in');
+    const outL = [...ml].reverse().find(l => l.type === 'out');
+
+    let dur = '—', pct = 0;
+    if (inL && outL) {
+      const [ih,im] = inL.time.split(':').map(Number), [oh,om] = outL.time.split(':').map(Number);
+      let mins = (oh*60+om)-(ih*60+im); if(mins<0) mins+=1440;
+      const h=Math.floor(mins/60), m=mins%60;
+      dur = m ? `${h}h ${m}m` : `${h}h`;
+      pct = Math.min(mins/480*100, 100);
     }
-    const chip=!inL?`<span class="chip c-abs">Absent</span>`:!outL?`<span class="chip c-in">● Working</span>`:`<span class="chip c-out">✓ Done</span>`;
-    return `<tr><td><div class="ec"><div class="av ${cv(i)}">${initials(emp.name)}</div><div><div class="en">${emp.name}</div><div class="er">${emp.role||''}</div></div></div></td>
-    <td><span class="mono">${inL?inL.time:'—'}</span></td><td><span class="mono">${outL?outL.time:'—'}</span></td>
-    <td>${dur!=='—'?`<div class="dur-wrap"><div class="dur-track"><div class="dur-fill" style="width:${pct}%"></div></div><span class="mono">${dur}</span></div>`:'<span style="color:var(--muted)">—</span>'}</td>
-    <td>${chip}</td><td><span class="mono" style="color:var(--muted)">${inL?inL.dist+'m':'—'}</span></td></tr>`;
+
+    const chip = !ml.length
+      ? `<span class="chip c-abs">Absent</span>`
+      : last.type === 'in'
+      ? `<span class="chip c-in">● Working</span>`
+      : `<span class="chip c-out">✓ Done</span>`;
+
+    return `<tr>
+      <td><div class="ec"><div class="av ${cv(i)}">${initials(emp.name)}</div>
+        <div><div class="en">${emp.name}</div><div class="er">${emp.role||''}</div></div></div></td>
+      <td><span class="mono">${inL ? inL.time : '—'}</span></td>
+      <td><span class="mono">${outL ? outL.time : '—'}</span></td>
+      <td>${dur !== '—' ? `<div class="dur-wrap"><div class="dur-track"><div class="dur-fill" style="width:${pct}%"></div></div><span class="mono">${dur}</span></div>` : '<span style="color:var(--muted)">—</span>'}</td>
+      <td>${chip}</td>
+      <td><span class="mono" style="color:var(--muted)">${inL ? inL.dist+'m' : '—'}</span></td>
+    </tr>`;
   }).join('');
 }
 
-function renderLogs(){
-  const date=document.getElementById('date-filter').value||todayStr();
-  const filtered=allLogs.filter(l=>l.date===date).sort((a,b)=>Number(b.id)-Number(a.id));
-  document.getElementById('logs-count').textContent=filtered.length+' events';
-  const tbody=document.getElementById('logs-body'),empty=document.getElementById('logs-empty');
-  if(!filtered.length){tbody.innerHTML='';empty.style.display='';return;}
-  empty.style.display='none';
-  tbody.innerHTML=filtered.map(l=>`<tr>
-    <td><div class="ec"><div class="av cv0" style="width:28px;height:28px;font-size:10px;">${initials(l.empName)}</div><span style="font-weight:600">${l.empName||'?'}</span></div></td>
+// ═══════════════════════════════════
+// ALL EVENTS TABLE
+// ═══════════════════════════════════
+function renderLogs() {
+  const date     = document.getElementById('date-filter').value || todayStr();
+  const filtered = allLogs.filter(l => l.date === date).sort((a,b) => b.time.localeCompare(a.time));
+  document.getElementById('logs-count').textContent = filtered.length + ' events';
+  const tbody = document.getElementById('logs-body');
+  const empty = document.getElementById('logs-empty');
+  if (!filtered.length) { tbody.innerHTML=''; empty.style.display=''; return; }
+  empty.style.display = 'none';
+  tbody.innerHTML = filtered.map(l => `<tr>
+    <td><div class="ec"><div class="av cv0" style="width:28px;height:28px;font-size:10px;">${initials(l.empName)}</div>
+      <span style="font-weight:600">${l.empName||'?'}</span></div></td>
     <td><span class="chip ${l.type==='in'?'c-in':'c-out'}">${l.type==='in'?'▶ IN':'■ OUT'}</span></td>
-    <td><span class="mono">${l.time}</span></td><td><span class="mono" style="color:var(--muted)">${l.date}</span></td>
-    <td><span class="mono" style="color:var(--muted)">${l.dist||'—'}m</span></td></tr>`).join('');
+    <td><span class="mono">${l.time}</span></td>
+    <td><span class="mono" style="color:var(--muted)">${l.dist||'—'}m</span></td>
+  </tr>`).join('');
 }
 
-function renderFeed(){
-  const tl=allLogs.filter(l=>l.date===todayStr()).sort((a,b)=>Number(b.id)-Number(a.id)).slice(0,25);
-  const ul=document.getElementById('feed-ul');
-  if(!tl.length){ul.innerHTML='<li class="empty"><div class="empty-i">📡</div>No activity today.</li>';return;}
-  ul.innerHTML=tl.map(l=>`<li class="feed-li"><div class="fdot ${l.type}"></div><div class="fb"><span class="fn">${l.empName||'?'}</span> <span class="fa">${l.type==='in'?'clocked in':'clocked out'}</span></div><div class="ft">${l.time}</div></li>`).join('');
+// ═══════════════════════════════════
+// LIVE FEED
+// ═══════════════════════════════════
+function renderFeed() {
+  const tl = allLogs.filter(l => l.date === todayStr()).sort((a,b) => b.time.localeCompare(a.time)).slice(0,25);
+  const ul = document.getElementById('feed-ul');
+  if (!tl.length) { ul.innerHTML='<li class="empty"><div class="empty-i">📡</div>No activity today.</li>'; return; }
+  ul.innerHTML = tl.map(l => `<li class="feed-li">
+    <div class="fdot ${l.type}"></div>
+    <div class="fb"><span class="fn">${l.empName||'?'}</span> <span class="fa">${l.type==='in'?'clocked in':'clocked out'}</span></div>
+    <div class="ft">${l.time}</div>
+  </li>`).join('');
 }
 
-function renderEmpList(){
-  const ul=document.getElementById('emp-ul'),empty=document.getElementById('emp-empty');
-  document.getElementById('emp-count-badge').textContent=employees.length+' staff';
-  if(!employees.length){ul.innerHTML='';empty.style.display='';return;}
-  empty.style.display='none';
-  ul.innerHTML=employees.map((e,i)=>`<li class="emp-li">
+// ═══════════════════════════════════
+// EMPLOYEES
+// ═══════════════════════════════════
+function renderEmpList() {
+  const ul    = document.getElementById('emp-ul');
+  const empty = document.getElementById('emp-empty');
+  document.getElementById('emp-count-badge').textContent = employees.length + ' staff';
+  if (!employees.length) { ul.innerHTML=''; empty.style.display=''; return; }
+  empty.style.display = 'none';
+  ul.innerHTML = employees.map((e,i) => `<li class="emp-li">
     <div class="av ${cv(i)}" style="width:30px;height:30px;font-size:11px;flex-shrink:0;">${initials(e.name)}</div>
     <div class="emp-meta"><div class="emp-name">${e.name}</div><div class="emp-role">${e.role||'Staff'} · ${e.dept||''}</div></div>
     <button class="del-btn" onclick="deleteEmployee('${e.id}','${e.name.replace(/'/g,"\\'")}')">×</button>
   </li>`).join('');
 }
 
-// ──────────────────────────────
-// ADD / DELETE EMPLOYEE
-// ──────────────────────────────
-async function addEmployee(){
-  const name=document.getElementById('new-name').value.trim();
-  const role=document.getElementById('new-role').value.trim();
-  const dept=document.getElementById('new-dept').value;
-  if(!name){notify('⚠️ Missing Name','Enter employee name first.','err');return;}
-  const btn=document.getElementById('add-btn');
-  btn.disabled=true; btn.classList.add('loading');
-  const rec={id:Date.now().toString(),name,role:role||'Staff',dept};
+async function addEmployee() {
+  const name = document.getElementById('new-name').value.trim();
+  const role = document.getElementById('new-role').value.trim();
+  const dept = document.getElementById('new-dept').value;
+  if (!name) { notify('⚠️ Missing Name','Enter employee name first.','err'); return; }
+
+  const btn = document.getElementById('add-btn');
+  btn.disabled = true; btn.classList.add('loading');
+
+  const rec = { id: Date.now().toString(), name, role: role||'Staff', dept };
+
   try {
-    const result = await apiPost(rec,'employees');
-    dlog('ok',`Created: ${JSON.stringify(result)}`);
+    await sbInsert('employees', rec);
     employees.push(rec);
-    document.getElementById('new-name').value='';
-    document.getElementById('new-role').value='';
+    document.getElementById('new-name').value = '';
+    document.getElementById('new-role').value = '';
     renderEmpList(); renderStats(); renderAttendance();
-    notify('✅ Employee Added',`${name} registered successfully.`,'ok');
+    notify('✅ Employee Added', `${name} registered successfully.`, 'ok');
   } catch(e) {
-    dlog('err',`addEmployee failed: ${e.message}`);
-    notify('⚠️ Save Failed',e.message.slice(0,90),'err');
-    // Auto-open debug panel on error so user can see what went wrong
-    debugOpen=true; document.getElementById('debug-box').style.display='';
-    window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+    notify('⚠️ Save Failed', e.message.slice(0,90), 'err');
   }
-  btn.disabled=false; btn.classList.remove('loading');
+
+  btn.disabled = false; btn.classList.remove('loading');
 }
 
-async function deleteEmployee(id,name){
-  if(!confirm(`Remove ${name}?`))return;
-  const ok = await apiDel(id,'employees');
-  if(ok){
-    employees=employees.filter(e=>String(e.id)!==String(id));
-    renderEmpList(); renderStats(); renderAttendance();
-    notify('🗑 Removed',`${name} deleted.`,'ok');
-  } else {
-    notify('⚠️ Failed','Could not delete employee.','err');
+async function deleteEmployee(id, name) {
+  if (!confirm(`Remove ${name}?`)) return;
+  try {
+    await sbDelete('employees', id);
+    // Also delete their logs
+    await fetch(`${SUPA_URL}/rest/v1/logs?empId=eq.${encodeURIComponent(id)}`, { method:'DELETE', headers: HEADERS });
+    employees = employees.filter(e => String(e.id) !== String(id));
+    allLogs   = allLogs.filter(l => String(l.empId) !== String(id));
+    renderAll();
+    notify('🗑 Removed', `${name} deleted.`, 'ok');
+  } catch(e) {
+    notify('⚠️ Failed', e.message.slice(0,80), 'err');
   }
 }
 
-// Notify
+// ═══════════════════════════════════
+// NOTIFY
+// ═══════════════════════════════════
 let nT;
-function notify(title,body,type){
-  const icons={ok:'✅',err:'⚠️',warn:'⚠️'};
-  document.getElementById('ni').textContent=icons[type]||'ℹ️';
-  document.getElementById('nt').textContent=title;
-  document.getElementById('nb').textContent=body;
-  const el=document.getElementById('notif');
+function notify(title, body, type) {
+  const icons = {ok:'✅', err:'⚠️'};
+  document.getElementById('ni').textContent = icons[type]||'ℹ️';
+  document.getElementById('nt').textContent = title;
+  document.getElementById('nb').textContent = body;
+  const el = document.getElementById('notif');
   el.classList.add('show'); clearTimeout(nT);
-  nT=setTimeout(()=>el.classList.remove('show'),4500);
+  nT = setTimeout(() => el.classList.remove('show'), 4000);
 }
 
-setInterval(()=>{loadAll().then(renderAll);},30000);
 init();
 </script>
 </body>
