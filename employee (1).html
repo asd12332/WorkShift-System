@@ -217,8 +217,41 @@ function populateSel(){
     employees.map(e=>`<option value="${e.id}">${e.name}${e.role?' · '+e.role:''}</option>`).join('');
 }
 
-function onEmpChange(){renderLog();updateBtns();}
+async function onEmpChange() {
+  const empId = document.getElementById('empSelect').value;
+  if (!empId) {
+    document.getElementById('currentStatus').className = 'current-status';
+    updateButtons();
+    return;
+  }
 
+  // 1. Fetch the latest logs for THIS employee only from your Sheet
+  // This ensures the phone knows if they are already "In" even if they closed the tab
+  try {
+    const response = await fetch(`${API_URL}?empId=${empId}&limit=1&sort=id&order=desc`);
+    const lastLogArray = await response.json();
+    
+    // 2. Update the local memory with the last action from the Sheet
+    if (lastLogArray.length > 0) {
+      const lastAction = lastLogArray[0];
+      // We only care about logs from TODAY
+      if (lastAction.date === todayStr()) {
+        // Force the app to remember the last state from the cloud
+        attendanceLogs = [lastAction]; 
+      } else {
+        attendanceLogs = []; // Reset if the last log was from yesterday
+      }
+    } else {
+      attendanceLogs = [];
+    }
+  } catch (e) {
+    console.error("Error fetching last status:", e);
+  }
+
+  // 3. Refresh the buttons and status text
+  updateButtons();
+  renderStatus();
+}
 function checkGPS(){
   setGPS('🔄','Checking...','Requesting GPS permission','g-chk','Wait...');
   if(!navigator.geolocation){setGPS('❌','Not supported','Use a modern browser','g-err','Error');return;}
