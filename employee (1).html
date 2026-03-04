@@ -22,22 +22,16 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;padding:28px 1
 .time-display{font-family:'JetBrains Mono',monospace;font-size:54px;font-weight:400;line-height:1;letter-spacing:3px;background:linear-gradient(135deg,#eef2ff 30%,#8fb4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .date-display{font-size:11px;color:var(--muted);margin-top:8px;letter-spacing:2px;text-transform:uppercase;font-weight:600;}
 .card{width:100%;max-width:420px;background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,0.5);}
-
-/* Loading */
 .loading-overlay{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;}
 .spinner{width:38px;height:38px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg)}}
-.loading-msg{font-size:14px;font-weight:600;color:var(--text);}
+.loading-msg{font-size:14px;font-weight:600;}
 .loading-step{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;max-width:280px;text-align:center;line-height:1.6;}
-
-/* Fields */
 .sec{padding:18px 20px;border-bottom:1px solid var(--border);}
 .field-lbl{display:block;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
 .emp-sel{width:100%;background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;font-weight:500;padding:13px 16px;border-radius:12px;outline:none;appearance:none;cursor:pointer;transition:border-color 0.2s;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235a6a85' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
 .emp-sel:focus{border-color:var(--accent);}
 .emp-sel option{background:var(--card);}
-
-/* Status bar */
 .status-bar{display:none;align-items:center;gap:12px;padding:13px 20px;border-bottom:1px solid var(--border);background:rgba(255,255,255,0.02);}
 .status-bar.show{display:flex;}
 .status-indicator{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
@@ -47,8 +41,6 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;padding:28px 1
 .status-info{flex:1;}
 .status-text{font-size:13px;font-weight:700;}
 .status-sub{font-size:11px;color:var(--muted);margin-top:2px;font-family:'JetBrains Mono',monospace;}
-
-/* GPS */
 .gps-row{padding:14px 20px;border-bottom:1px solid var(--border);}
 .gps-block{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:12px;background:var(--surface);border:1px solid var(--border);cursor:pointer;transition:all 0.2s;}
 .gps-block:hover{border-color:var(--accent);}
@@ -63,8 +55,6 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;padding:28px 1
 .g-ok{background:rgba(16,217,138,0.15);color:var(--green);}
 .g-far{background:rgba(242,85,85,0.15);color:var(--red);}
 .g-err{background:rgba(242,85,85,0.1);color:var(--red);}
-
-/* Buttons */
 .btns{padding:18px 20px;display:flex;flex-direction:column;gap:10px;}
 .abtn{width:100%;padding:16px;border:none;border-radius:14px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.3px;cursor:pointer;transition:all 0.25s;display:flex;align-items:center;justify-content:center;gap:8px;}
 .abtn:disabled{opacity:0.3;cursor:not-allowed;transform:none!important;box-shadow:none!important;}
@@ -75,17 +65,14 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;padding:28px 1
 .abtn-in:not(:disabled):hover{box-shadow:0 12px 36px rgba(16,217,138,0.38);transform:translateY(-2px);}
 .abtn-out{background:linear-gradient(135deg,#f25555,#c92e2e);color:white;box-shadow:0 8px 28px rgba(242,85,85,0.22);}
 .abtn-out:not(:disabled):hover{box-shadow:0 12px 36px rgba(242,85,85,0.38);transform:translateY(-2px);}
-
-/* Saving */
 .saving-row{display:none;align-items:center;justify-content:center;gap:8px;padding:10px;font-size:12px;color:var(--amber);background:rgba(247,184,79,0.07);border-top:1px solid rgba(247,184,79,0.12);}
 .saving-row.on{display:flex;}
 .mini-spin{width:13px;height:13px;border:2px solid rgba(247,184,79,0.3);border-top-color:var(--amber);border-radius:50%;animation:spin 0.7s linear infinite;}
-
-/* Log */
 .log-wrap{padding:18px 20px;}
 .log-hdr{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:12px;}
 .log-empty{text-align:center;padding:18px;color:var(--muted);font-size:13px;}
-.log-item{display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:10px;margin-bottom:8px;background:var(--surface);border:1px solid var(--border);}
+.log-item{display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:10px;margin-bottom:8px;background:var(--surface);border:1px solid var(--border);animation:si 0.3s ease;}
+@keyframes si{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
 .log-item:last-child{margin-bottom:0;}
 .log-ico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
 .log-ico.in{background:rgba(16,217,138,0.1);}
@@ -96,8 +83,6 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;padding:28px 1
 .log-tc{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;padding:4px 9px;border-radius:8px;white-space:nowrap;}
 .log-tc.in{background:rgba(16,217,138,0.1);color:var(--green);}
 .log-tc.out{background:rgba(242,85,85,0.1);color:var(--red);}
-
-/* Toast */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(90px);z-index:200;min-width:260px;max-width:320px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px 16px;display:flex;align-items:center;gap:11px;box-shadow:0 20px 60px rgba(0,0,0,0.6);transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);opacity:0;}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
 .t-icon{font-size:20px;flex-shrink:0;}.t-title{font-weight:700;font-size:14px;}.t-body{font-size:12px;color:var(--muted);margin-top:1px;}
@@ -123,7 +108,6 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;padding:28px 1
   </div>
 
   <div class="card">
-
     <div class="sec">
       <label class="field-lbl">Your Name</label>
       <select class="emp-sel" id="emp-sel" onchange="onEmpChange()">
@@ -131,7 +115,6 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;padding:28px 1
       </select>
     </div>
 
-    <!-- Current status shown after selecting name -->
     <div class="status-bar" id="status-bar">
       <div class="status-indicator" id="status-icon">⬤</div>
       <div class="status-info">
@@ -165,7 +148,6 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;padding:28px 1
       <div class="log-hdr">Today's Activity</div>
       <div id="log-body"><div class="log-empty">Select your name to see activity.</div></div>
     </div>
-
   </div>
 </main>
 
@@ -176,9 +158,17 @@ main{flex:1;display:flex;flex-direction:column;align-items:center;padding:28px 1
 
 <script>
 // ═══════════════════════════════════
-// CONFIG
+// SUPABASE CONFIG
 // ═══════════════════════════════════
-const API      = 'https://script.google.com/macros/s/AKfycbzHd_Wda7_FzVRndi3C32tX4WTdZ7viUleI6VsNf3EtL9Dyfi7odasD36bV_1d3j6-lTg/exec';
+const SUPA_URL = 'https://ikyddvnjcshwpgfbdriy.supabase.co';
+const SUPA_KEY = 'sb_publishable_2MkhmYUU7GX6w8vqMXDVuw_kA4zPu5i';
+const HEADERS  = {
+  'Content-Type':  'application/json',
+  'apikey':        SUPA_KEY,
+  'Authorization': 'Bearer ' + SUPA_KEY,
+  'Prefer':        'return=minimal'
+};
+
 const WORK_LAT = 31.95779990875444;
 const WORK_LNG = 35.860622007596;
 const RADIUS_M = 50;
@@ -210,61 +200,60 @@ function haversineM(a, b, c, d) {
   return R * 2 * Math.atan2(Math.sqrt(x), Math.sqrt(1-x));
 }
 
-// ═══════════════════════════════════════════════════════
-// API  — Google Apps Script CORS fix
-//
-// Problem: Google Apps Script redirects (302) cause CORS
-// errors in normal fetch calls from GitHub Pages.
-//
-// Solution: add a unique &t= timestamp to bust any cache
-// AND follow redirects explicitly. The script already
-// returns JSON for GET, and accepts text/plain POST.
-// ═══════════════════════════════════════════════════════
-
-async function apiGet(sheet) {
-  // Add timestamp so browser never uses a cached response
-  const url = `${API}?sheet=${sheet}&t=${Date.now()}`;
-  setStep(`Loading ${sheet}...`);
-  const res = await fetch(url, {
-    method: 'GET',
-    redirect: 'follow',
-  });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const data = await res.json();
-  return Array.isArray(data) ? data : [];
+// ═══════════════════════════════════
+// SUPABASE API — no CORS issues ✅
+// ═══════════════════════════════════
+async function sbGet(table, filters = '') {
+  const url = `${SUPA_URL}/rest/v1/${table}?select=*${filters}`;
+  const res  = await fetch(url, { headers: HEADERS });
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`GET ${table} failed: ${err}`);
+  }
+  return res.json();
 }
 
-async function apiPost(record, sheet) {
-  // no-cors because Apps Script POST redirects break preflight.
-  // The write still completes — we just can't read the response.
-  await fetch(`${API}?sheet=${sheet}`, {
+async function sbInsert(table, record) {
+  const url = `${SUPA_URL}/rest/v1/${table}`;
+  const res  = await fetch(url, {
     method:  'POST',
-    mode:    'no-cors',
-    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body:    JSON.stringify({ data: [record] })
+    headers: HEADERS,
+    body:    JSON.stringify(record)
   });
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`INSERT ${table} failed: ${err}`);
+  }
+}
+
+async function sbDelete(table, id) {
+  const url = `${SUPA_URL}/rest/v1/${table}?id=eq.${id}`;
+  const res  = await fetch(url, { method: 'DELETE', headers: HEADERS });
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`DELETE ${table} failed: ${err}`);
+  }
 }
 
 // ═══════════════════════════════════
-// INIT — loads fresh from server every open
+// INIT — loads fresh every page open
 // ═══════════════════════════════════
 async function init() {
   setStep('Loading employees...');
   try {
-    employees = await apiGet('employees');
+    employees = await sbGet('employees', '&order=name.asc');
     setStep(`${employees.length} employees found. Loading today's logs...`);
   } catch(e) {
-    setStep(`Failed to load employees: ${e.message}`);
+    setStep('❌ ' + e.message);
     employees = [];
   }
 
   try {
-    const all = await apiGet('logs');
-    // Filter to only today's records
-    todayLogs = all.filter(l => String(l.date) === todayStr());
-    setStep(`Ready. ${todayLogs.length} clock events today.`);
+    // Only fetch today's logs — faster and correct state on refresh
+    todayLogs = await sbGet('logs', `&date=eq.${todayStr()}&order=time.asc`);
+    setStep(`Ready ✓ — ${todayLogs.length} events today`);
   } catch(e) {
-    setStep(`Failed to load logs: ${e.message}`);
+    setStep('❌ ' + e.message);
     todayLogs = [];
   }
 
@@ -295,18 +284,15 @@ function onEmpChange() {
   updateBtns();
 }
 
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════
 // STATUS BAR
-// Shows the employee's CURRENT state based on
-// the last log entry for today loaded from server
-// ═══════════════════════════════════════════════
+// ═══════════════════════════════════
 function renderStatusBar() {
   const id  = document.getElementById('emp-sel').value;
   const bar = document.getElementById('status-bar');
   if (!id) { bar.classList.remove('show'); return; }
   bar.classList.add('show');
 
-  // Get today's logs for this employee, sorted by time
   const ml   = getMyLogs(id);
   const last = ml.length ? ml[ml.length - 1] : null;
   const icon = document.getElementById('status-icon');
@@ -314,52 +300,43 @@ function renderStatusBar() {
   const sub  = document.getElementById('status-sub');
 
   if (!last) {
-    icon.textContent  = '🕐';
-    icon.className    = 'status-indicator si-none';
-    text.textContent  = 'Not clocked in yet today';
-    sub.textContent   = 'Verify location → Clock In';
+    icon.textContent = '🕐'; icon.className = 'status-indicator si-none';
+    text.textContent = 'Not clocked in yet today';
+    sub.textContent  = 'Verify location → Clock In';
   } else if (last.type === 'in') {
-    icon.textContent  = '🟢';
-    icon.className    = 'status-indicator si-working';
-    text.textContent  = '● Currently Working';
-    sub.textContent   = `Clocked in at ${last.time}`;
+    icon.textContent = '🟢'; icon.className = 'status-indicator si-working';
+    text.textContent = '● Currently Working';
+    sub.textContent  = `Clocked in at ${last.time}`;
   } else {
-    icon.textContent  = '🔵';
-    icon.className    = 'status-indicator si-out';
-    text.textContent  = 'Last clocked out at ' + last.time;
-    sub.textContent   = 'You can clock in again if needed';
+    icon.textContent = '🔵'; icon.className = 'status-indicator si-out';
+    text.textContent = 'Last clocked out at ' + last.time;
+    sub.textContent  = 'You can clock in again if needed';
   }
 }
 
-// Get logs for an employee today, sorted oldest → newest
+// ═══════════════════════════════════════════════════
+// BUTTON STATE
+// last event = 'in'  → working  → only OUT enabled
+// last event = 'out' → not working → only IN enabled
+// no events          → only IN enabled
+// Allows unlimited clock-in/out pairs per day
+// ═══════════════════════════════════════════════════
 function getMyLogs(empId) {
   return todayLogs
     .filter(l => String(l.empId) === String(empId))
     .sort((a, b) => String(a.time).localeCompare(String(b.time)));
 }
 
-// ═══════════════════════════════════════════════════
-// BUTTON STATE
-//
-// Rule: look at the LAST event for this employee today
-//   last = 'in'   → currently working → only OUT enabled
-//   last = 'out'  → not working       → only IN enabled
-//   no events     → not working       → only IN enabled
-//
-// This allows unlimited clock-in/out pairs per day.
-// ═══════════════════════════════════════════════════
 function updateBtns() {
   const id  = document.getElementById('emp-sel').value;
   const can = gps.ok && !!id;
 
-  const ml         = getMyLogs(id);
-  const last       = ml.length ? ml[ml.length - 1] : null;
-  const isWorking  = last && last.type === 'in';   // last punch = in  → working
-  const isOut      = !last || last.type === 'out'; // last punch = out → not working
+  const ml        = getMyLogs(id);
+  const last      = ml.length ? ml[ml.length - 1] : null;
+  const isWorking = last && last.type === 'in';
 
   document.getElementById('btn-in').disabled  = !can || isWorking;
-  document.getElementById('btn-out').disabled = !can || isOut;
-
+  document.getElementById('btn-out').disabled = !can || !isWorking;
   document.getElementById('btn-in').textContent  = isWorking ? '✅ Currently Working' : '✅ Clock In — Start Work';
   document.getElementById('btn-out').textContent = '🔴 Clock Out — End Shift';
 }
@@ -426,14 +403,14 @@ async function doAction(type) {
     type,
     date:    todayStr(),
     time:    nowTime(),
-    lat:     String(gps.lat.toFixed(6)),
-    lng:     String(gps.lng.toFixed(6)),
+    lat:     gps.lat.toFixed(6),
+    lng:     gps.lng.toFixed(6),
     dist:    String(gps.dist)
   };
 
   try {
-    await apiPost(rec, 'logs');
-    todayLogs.push(rec);  // update local state immediately
+    await sbInsert('logs', rec);
+    todayLogs.push(rec);
     toast(
       type === 'in' ? '✅ Clocked In!' : '🔴 Clocked Out!',
       `${emp.name} — ${rec.time}`,
@@ -451,25 +428,17 @@ async function doAction(type) {
 }
 
 // ═══════════════════════════════════
-// RENDER TODAY'S LOG
+// RENDER LOG
 // ═══════════════════════════════════
 function renderLog() {
   const id   = document.getElementById('emp-sel').value;
   const body = document.getElementById('log-body');
+  if (!id) { body.innerHTML = '<div class="log-empty">Select your name to see activity.</div>'; return; }
 
-  if (!id) {
-    body.innerHTML = '<div class="log-empty">Select your name to see activity.</div>';
-    return;
-  }
+  const ml = [...getMyLogs(id)].reverse();
+  if (!ml.length) { body.innerHTML = '<div class="log-empty">No activity yet today. Clock in to start!</div>'; return; }
 
-  const ml = getMyLogs(id);
-
-  if (!ml.length) {
-    body.innerHTML = '<div class="log-empty">No activity yet today. Clock in to start!</div>';
-    return;
-  }
-
-  body.innerHTML = ml.reverse().map(l => `
+  body.innerHTML = ml.map(l => `
     <div class="log-item">
       <div class="log-ico ${l.type}">${l.type === 'in' ? '🟢' : '🔴'}</div>
       <div class="log-content">
@@ -494,9 +463,6 @@ function toast(title, body, type) {
   toastT = setTimeout(() => el.classList.remove('show'), 3500);
 }
 
-// ═══════════════════════════════════
-// START
-// ═══════════════════════════════════
 init();
 </script>
 </body>
