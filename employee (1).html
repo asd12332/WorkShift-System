@@ -198,16 +198,16 @@ async function apiPost(record, sheet) {
 
 async function init(){
   try{
-    employees=await apiGet('employees');
-    todayLogs=await apiGet('logs');
-    // Filter to only today
-    todayLogs=todayLogs.filter(l=>l.date===todayStr());
-  }catch(e){
-    document.getElementById('loading-msg').textContent='Could not load — check sheet setup';
-    await new Promise(r=>setTimeout(r,1500));
+    employees = await apiGet('employees');
+    // This part is key: it pulls the newest logs from your Google Sheet
+    const allLogs = await apiGet('logs');
+    todayLogs = allLogs.filter(l => l.date === todayStr());
+    
+    populateSel();
+    document.getElementById('loading-overlay').style.display = 'none';
+  } catch(e) {
+    document.getElementById('loading-msg').textContent = 'Sync Error - Try Refreshing';
   }
-  populateSel();
-  document.getElementById('loading-overlay').style.display='none';
 }
 
 function populateSel(){
@@ -217,40 +217,22 @@ function populateSel(){
     employees.map(e=>`<option value="${e.id}">${e.name}${e.role?' · '+e.role:''}</option>`).join('');
 }
 
-async function onEmpChange() {
-  const empId = document.getElementById('empSelect').value;
-  if (!empId) {
-    document.getElementById('currentStatus').className = 'current-status';
-    updateButtons();
-    return;
+function onEmpChange() {
+  const id = document.getElementById('emp-sel').value;
+  
+  // 1. Reset GPS check if a new employee is selected
+  // (Optional, but safer for accuracy)
+  
+  // 2. Update the buttons based on the data we already have in 'todayLogs'
+  updateBtns();
+  
+  // 3. Show the history list for this specific person
+  renderLog();
+  
+  // 4. Visual feedback
+  if (id) {
+    toast('Employee Selected', 'GPS verification required to proceed.', 'ok');
   }
-
-  // 1. Fetch the latest logs for THIS employee only from your Sheet
-  // This ensures the phone knows if they are already "In" even if they closed the tab
-  try {
-    const response = await fetch(`${API_URL}?empId=${empId}&limit=1&sort=id&order=desc`);
-    const lastLogArray = await response.json();
-    
-    // 2. Update the local memory with the last action from the Sheet
-    if (lastLogArray.length > 0) {
-      const lastAction = lastLogArray[0];
-      // We only care about logs from TODAY
-      if (lastAction.date === todayStr()) {
-        // Force the app to remember the last state from the cloud
-        attendanceLogs = [lastAction]; 
-      } else {
-        attendanceLogs = []; // Reset if the last log was from yesterday
-      }
-    } else {
-      attendanceLogs = [];
-    }
-  } catch (e) {
-    console.error("Error fetching last status:", e);
-  }
-
-  // 3. Refresh the buttons and status text
-  updateButtons();
-  renderStatus();
 }
 function checkGPS(){
   setGPS('🔄','Checking...','Requesting GPS permission','g-chk','Wait...');
