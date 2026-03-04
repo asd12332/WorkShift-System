@@ -270,7 +270,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:1px;backgroun
       </div>
       <div class="radius-row">
         <span class="radius-lbl">Allowed radius (meters):</span>
-        <input type="number" class="radius-in" id="radius-input" value="50" min="10" max="1000">
+        <input type="number" class="radius-in" id="radius-input" value="100" min="10" max="1000">
       </div>
       <button class="save-loc-btn" onclick="saveLocation()">💾 Save Location</button>
       <div class="code-box" id="code-box">
@@ -292,7 +292,12 @@ const SUPA_URL='https://ikyddvnjcshwpgfbdriy.supabase.co';
 const SUPA_KEY='sb_publishable_2MkhmYUU7GX6w8vqMXDVuw_kA4zPu5i';
 const HEADERS={'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Prefer':'return=minimal'};
 
-let WORK_LAT=32.00295664301519,WORK_LNG=35.85710219794321,RADIUS_M=50;
+// ═══════════════════════════════════
+// NEW SHOP LOCATION & RADIUS
+// ═══════════════════════════════════
+let WORK_LAT = 31.957827358280788;
+let WORK_LNG = 35.86051762104035;
+let RADIUS_M = 100;
 let employees=[],allLogs=[];
 const initials=n=>(n||'?').split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
 const cv=i=>'cv'+(i%6);
