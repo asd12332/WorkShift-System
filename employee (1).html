@@ -169,17 +169,16 @@ const HEADERS  = {
   'Prefer':        'return=minimal'
 };
 
-// ═══════════════════════════════════
-// NEW SHOP LOCATION
-// ═══════════════════════════════════
-const WORK_LAT = 31.957827358280788;
-const WORK_LNG = 35.86051762104035;
-const RADIUS_M = 100;
+const WORK_LAT = 31.95779990875444;
+const WORK_LNG = 35.860622007596;
+const RADIUS_M = 50;
+
 // ═══════════════════════════════════
 // STATE
 // ═══════════════════════════════════
 let employees = [];
-let todayLogs  = [];
+let todayLogs  = [];   // today's logs for the activity list
+let lastLog    = null; // the very last log across ALL dates (for working state)
 let gps        = { ok: false, lat: null, lng: null, dist: null };
 let busy       = false;
 
@@ -244,19 +243,28 @@ async function init() {
   setStep('Loading employees...');
   try {
     employees = await sbGet('employees', '&order=name.asc');
-    setStep(`${employees.length} employees found. Loading today's logs...`);
+    setStep(`${employees.length} employees found. Loading logs...`);
   } catch(e) {
     setStep('❌ ' + e.message);
     employees = [];
   }
 
   try {
-    // Only fetch today's logs — faster and correct state on refresh
+    // Today's logs for the activity display
     todayLogs = await sbGet('logs', `&date=eq.${todayStr()}&order=time.asc`);
+    // Also fetch the very last log for each employee across ALL dates
+    // so we can detect overnight / multi-day shifts
+    const allRecent = await sbGet('logs', `&order=date.desc,time.desc&limit=500`);
+    // Build a map: empId → their single most recent log (any date)
+    lastLog = {};
+    allRecent.forEach(l => {
+      if (!lastLog[String(l.empId)]) lastLog[String(l.empId)] = l;
+    });
     setStep(`Ready ✓ — ${todayLogs.length} events today`);
   } catch(e) {
     setStep('❌ ' + e.message);
     todayLogs = [];
+    lastLog   = {};
   }
 
   populateSel();
@@ -295,20 +303,21 @@ function renderStatusBar() {
   if (!id) { bar.classList.remove('show'); return; }
   bar.classList.add('show');
 
-  const ml   = getMyLogs(id);
-  const last = ml.length ? ml[ml.length - 1] : null;
+  const last = getLastLogAnyDate(id);
   const icon = document.getElementById('status-icon');
   const text = document.getElementById('status-text');
   const sub  = document.getElementById('status-sub');
 
   if (!last) {
     icon.textContent = '🕐'; icon.className = 'status-indicator si-none';
-    text.textContent = 'Not clocked in yet today';
+    text.textContent = 'Not clocked in yet';
     sub.textContent  = 'Verify location → Clock In';
   } else if (last.type === 'in') {
     icon.textContent = '🟢'; icon.className = 'status-indicator si-working';
     text.textContent = '● Currently Working';
-    sub.textContent  = `Clocked in at ${last.time}`;
+    // show date if it was a previous day
+    const dateLabel = last.date !== todayStr() ? ` on ${last.date}` : '';
+    sub.textContent  = `Clocked in at ${last.time}${dateLabel}`;
   } else {
     icon.textContent = '🔵'; icon.className = 'status-indicator si-out';
     text.textContent = 'Last clocked out at ' + last.time;
@@ -323,22 +332,34 @@ function renderStatusBar() {
 // no events          → only IN enabled
 // Allows unlimited clock-in/out pairs per day
 // ═══════════════════════════════════════════════════
+// Today's logs for this employee (for activity display)
 function getMyLogs(empId) {
   return todayLogs
     .filter(l => String(l.empId) === String(empId))
     .sort((a, b) => String(a.time).localeCompare(String(b.time)));
 }
 
+// The REAL working state — uses last log from any date
+// Returns true if employee's most recent event ever is a clock-in
+function isCurrentlyWorking(empId) {
+  const last = lastLog && lastLog[String(empId)];
+  return last && last.type === 'in';
+}
+
+// The last log entry regardless of date (for status bar)
+function getLastLogAnyDate(empId) {
+  return lastLog && lastLog[String(empId)] || null;
+}
+
 function updateBtns() {
   const id  = document.getElementById('emp-sel').value;
-  const can = gps.ok && !!id;
+  const canIn  = gps.ok && !!id;   // Clock IN requires GPS
+  const canOut = !!id;              // Clock OUT does NOT require GPS
 
-  const ml        = getMyLogs(id);
-  const last      = ml.length ? ml[ml.length - 1] : null;
-  const isWorking = last && last.type === 'in';
+  const isWorking = isCurrentlyWorking(id);
 
-  document.getElementById('btn-in').disabled  = !can || isWorking;
-  document.getElementById('btn-out').disabled = !can || !isWorking;
+  document.getElementById('btn-in').disabled  = !canIn  || isWorking;
+  document.getElementById('btn-out').disabled = !canOut || !isWorking;
   document.getElementById('btn-in').textContent  = isWorking ? '✅ Currently Working' : '✅ Clock In — Start Work';
   document.getElementById('btn-out').textContent = '🔴 Clock Out — End Shift';
 }
@@ -389,7 +410,9 @@ function setGPS(ico, ttl, sub, cls, chip) {
 async function doAction(type) {
   if (busy) return;
   const id  = document.getElementById('emp-sel').value;
-  if (!id || !gps.ok) return;
+  // Clock IN requires GPS; Clock OUT does not
+  if (!id) return;
+  if (type === 'in' && !gps.ok) return;
   const emp = employees.find(e => String(e.id) === String(id));
   if (!emp) return;
 
@@ -405,14 +428,17 @@ async function doAction(type) {
     type,
     date:    todayStr(),
     time:    nowTime(),
-    lat:     gps.lat.toFixed(6),
-    lng:     gps.lng.toFixed(6),
-    dist:    String(gps.dist)
+    lat:     gps.lat ? gps.lat.toFixed(6) : '0',
+    lng:     gps.lng ? gps.lng.toFixed(6) : '0',
+    dist:    gps.dist !== null ? String(gps.dist) : 'N/A'
   };
 
   try {
     await sbInsert('logs', rec);
     todayLogs.push(rec);
+    // Update cross-date working state immediately
+    if (!lastLog) lastLog = {};
+    lastLog[String(emp.id)] = rec;
     toast(
       type === 'in' ? '✅ Clocked In!' : '🔴 Clocked Out!',
       `${emp.name} — ${rec.time}`,
