@@ -49,9 +49,10 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:1px;backgroun
 .b-green{background:rgba(16,185,129,0.12);color:var(--green);}
 .b-muted{background:rgba(100,116,139,0.1);color:var(--muted);}
 .b-amber{background:rgba(245,158,11,0.12);color:var(--amber);}
+.b-red{background:rgba(239,68,68,0.1);color:var(--red);}
 .tbl{width:100%;border-collapse:collapse;font-size:13px;}
 .tbl th{padding:9px 16px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-align:left;border-bottom:1px solid var(--border);background:var(--surface);white-space:nowrap;}
-.tbl td{padding:12px 16px;border-bottom:1px solid rgba(31,41,55,0.5);vertical-align:middle;}
+.tbl td{padding:11px 16px;border-bottom:1px solid rgba(31,41,55,0.5);vertical-align:middle;}
 .tbl tr:last-child td{border-bottom:none;}
 .tbl tr:hover td{background:rgba(99,102,241,0.03);}
 .av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0;}
@@ -97,25 +98,57 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:1px;backgroun
 .ft{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);white-space:nowrap;}
 .empty{padding:32px;text-align:center;color:var(--muted);font-size:13px;}
 .empty-i{font-size:30px;margin-bottom:8px;}
-/* LATE */
-.late-controls{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:12px;align-items:end;padding:20px;border-bottom:1px solid var(--border);background:var(--surface);}
+
+/* ── FILTERS BAR ── */
+.filters-bar{display:flex;align-items:center;gap:10px;padding:14px 20px;border-bottom:1px solid var(--border);background:var(--surface);flex-wrap:wrap;}
+.filter-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);white-space:nowrap;}
+.filter-sel{background:var(--card);border:1px solid var(--border);color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;padding:8px 12px;border-radius:8px;outline:none;cursor:pointer;min-width:160px;}
+.filter-sel:focus{border-color:var(--accent);}
+.filter-sel option{background:var(--card);}
+.filter-chip{padding:6px 12px;background:var(--card);border:1px solid var(--border);border-radius:8px;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.filter-chip.active,.filter-chip:hover{border-color:var(--accent);color:var(--accent);background:rgba(99,102,241,0.08);}
+.filter-chip.active{background:rgba(99,102,241,0.12);}
+.filter-sep{width:1px;height:22px;background:var(--border);flex-shrink:0;}
+
+/* ── RECORDS TABLE — delete btn ── */
+.row-del{width:28px;height:28px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-size:14px;transition:all 0.2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.row-del:hover{border-color:var(--red);color:var(--red);background:rgba(239,68,68,0.08);}
+.deleting{opacity:0.4;pointer-events:none;}
+
+/* ── LATE TRACKING ── */
+.ctrl-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:12px;align-items:end;padding:20px;border-bottom:1px solid var(--border);background:var(--surface);}
 .ctrl-group{display:flex;flex-direction:column;gap:6px;}
 .ctrl-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);}
 .ctrl-input{background:var(--card);border:1px solid var(--border);color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;padding:10px 13px;border-radius:9px;outline:none;width:100%;}
 .ctrl-input:focus{border-color:var(--accent);}
+.ctrl-sel{background:var(--card);border:1px solid var(--border);color:var(--text);font-family:'Outfit',sans-serif;font-size:13px;padding:10px 13px;border-radius:9px;outline:none;width:100%;cursor:pointer;}
+.ctrl-sel:focus{border-color:var(--accent);}
+.ctrl-sel option{background:var(--card);}
 .run-btn{padding:10px 20px;background:var(--accent);border:none;border-radius:9px;color:white;font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all 0.2s;}
 .run-btn:hover{background:#4f46e5;transform:translateY(-1px);}
-.late-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:20px;border-bottom:1px solid var(--border);}
+.late-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:20px;border-bottom:1px solid var(--border);}
 .ls-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center;}
-.ls-n{font-size:28px;font-weight:800;margin-bottom:4px;}
-.ls-l{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;}
-.late-bar{display:flex;align-items:center;gap:8px;margin-top:4px;}
+.ls-n{font-size:26px;font-weight:800;margin-bottom:4px;}
+.ls-l{font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+.late-bar{display:flex;align-items:center;gap:8px;}
 .late-track{flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden;}
 .late-fill-bar{height:100%;border-radius:2px;background:var(--amber);}
 .late-fill-bar.ok{background:var(--green);}
 .late-mins{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--amber);white-space:nowrap;min-width:55px;text-align:right;}
 .late-mins.ok{color:var(--green);}
-/* LOCATION */
+
+/* ── HOURS CALC ── */
+.hours-section{border-top:2px solid var(--border);margin-top:0;}
+.section-hdr{padding:16px 20px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.section-hdr-title{font-size:14px;font-weight:700;}
+.section-hdr-sub{font-size:12px;color:var(--muted);}
+.hours-controls{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:12px;align-items:end;padding:16px 20px;border-bottom:1px solid var(--border);background:var(--surface);}
+.hours-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:18px 20px;border-bottom:1px solid var(--border);}
+.hs-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center;}
+.hs-n{font-size:22px;font-weight:800;margin-bottom:3px;color:var(--accent);}
+.hs-l{font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+
+/* ── LOCATION ── */
 .loc-inner{padding:20px;display:flex;flex-direction:column;gap:16px;}
 .map-wrap{width:100%;height:360px;border-radius:12px;overflow:hidden;border:1px solid var(--border);position:relative;}
 #map{width:100%;height:100%;}
@@ -132,6 +165,7 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:1px;backgroun
 .save-loc-btn:hover{background:#0da672;transform:translateY(-1px);}
 .code-box{background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.2);border-radius:10px;padding:14px 16px;font-size:12px;color:var(--muted);line-height:1.9;}
 .code-box code{background:rgba(255,255,255,0.08);padding:1px 7px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#93c5fd;}
+
 .notif{position:fixed;bottom:24px;right:24px;z-index:200;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 20px 60px rgba(0,0,0,0.5);transform:translateY(90px);opacity:0;transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);max-width:380px;}
 .notif.show{transform:translateY(0);opacity:1;}
 .ni{font-size:22px;flex-shrink:0;}.nt{font-weight:700;font-size:14px;}.nb{font-size:12px;color:var(--muted);margin-top:1px;}
@@ -141,8 +175,9 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:1px;backgroun
 .cv0{background:rgba(99,102,241,0.2);color:#a5b4fc;}.cv1{background:rgba(16,185,129,0.2);color:#6ee7b7;}
 .cv2{background:rgba(245,158,11,0.2);color:#fcd34d;}.cv3{background:rgba(239,68,68,0.2);color:#fca5a5;}
 .cv4{background:rgba(168,85,247,0.2);color:#c4b5fd;}.cv5{background:rgba(236,72,153,0.2);color:#f9a8d4;}
-@media(max-width:1000px){.grid2{grid-template-columns:1fr;}.late-controls{grid-template-columns:1fr 1fr;}}
-@media(max-width:700px){.stats{grid-template-columns:1fr 1fr;}.wrap{padding:14px;}.late-controls{grid-template-columns:1fr;}.late-summary{grid-template-columns:1fr 1fr;}}
+@media(max-width:1100px){.ctrl-row{grid-template-columns:1fr 1fr 1fr;}.ctrl-row .run-btn{grid-column:span 3;}}
+@media(max-width:1000px){.grid2{grid-template-columns:1fr;}.hours-controls{grid-template-columns:1fr 1fr;}}
+@media(max-width:700px){.stats{grid-template-columns:1fr 1fr;}.wrap{padding:14px;}.late-summary{grid-template-columns:1fr 1fr;}.hours-summary{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -162,11 +197,11 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:1px;backgroun
 
 <div class="tabs">
   <div class="tab active" onclick="switchTab('attendance')">📋 Attendance</div>
-  <div class="tab" onclick="switchTab('late')">⏰ Late Tracking</div>
+  <div class="tab" onclick="switchTab('late')">⏰ Late / Hours</div>
   <div class="tab" onclick="switchTab('location')">📍 Location</div>
 </div>
 
-<!-- ── PANEL: ATTENDANCE ── -->
+<!-- ════════════════════ PANEL: ATTENDANCE ════════════════════ -->
 <div class="panel active" id="panel-attendance">
 <div class="wrap">
   <div class="top-bar">
@@ -181,17 +216,36 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:1px;backgroun
   </div>
   <div class="grid2">
     <div>
+      <!-- Daily summary -->
       <div class="box">
         <div class="box-head"><div class="box-title">Attendance Record</div><span class="badge b-muted" id="att-date-badge">—</span></div>
         <div style="overflow-x:auto;"><table class="tbl"><thead><tr><th>Employee</th><th>Clock In</th><th>Clock Out</th><th>Duration</th><th>Status</th><th>Distance</th></tr></thead><tbody id="att-body"></tbody></table></div>
         <div class="empty" id="att-empty" style="display:none;"><div class="empty-i">📋</div>No records for this date.</div>
       </div>
+
+      <!-- All raw clock events with filters + delete -->
       <div class="box">
-        <div class="box-head"><div class="box-title">All Clock Events</div><span class="badge b-muted" id="logs-count">0 events</span></div>
-        <div style="overflow-x:auto;"><table class="tbl"><thead><tr><th>Employee</th><th>Type</th><th>Time</th><th>Distance</th></tr></thead><tbody id="logs-body"></tbody></table></div>
-        <div class="empty" id="logs-empty" style="display:none;"><div class="empty-i">📡</div>No events yet.</div>
+        <div class="box-head">
+          <div class="box-title">All Clock Events</div>
+          <span class="badge b-muted" id="logs-count">0 events</span>
+        </div>
+        <!-- Filters -->
+        <div class="filters-bar">
+          <span class="filter-label">Filter:</span>
+          <select class="filter-sel" id="log-filter-name" onchange="renderLogs()">
+            <option value="">All Employees</option>
+          </select>
+          <div class="filter-sep"></div>
+          <span class="filter-label">Type:</span>
+          <div class="filter-chip active" id="fc-all"  onclick="setLogType('all')">All</div>
+          <div class="filter-chip"        id="fc-in"   onclick="setLogType('in')">IN only</div>
+          <div class="filter-chip"        id="fc-out"  onclick="setLogType('out')">OUT only</div>
+        </div>
+        <div style="overflow-x:auto;"><table class="tbl"><thead><tr><th>Employee</th><th>Type</th><th>Date</th><th>Time</th><th>Distance</th><th></th></tr></thead><tbody id="logs-body"></tbody></table></div>
+        <div class="empty" id="logs-empty" style="display:none;"><div class="empty-i">📡</div>No events match the filter.</div>
       </div>
     </div>
+
     <div>
       <div class="box">
         <div class="box-head"><div class="box-title">Employees</div><span class="badge b-muted" id="emp-count-badge">0 staff</span></div>
@@ -213,52 +267,96 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:1px;backgroun
 </div>
 </div>
 
-<!-- ── PANEL: LATE TRACKING ── -->
+<!-- ════════════════════ PANEL: LATE / HOURS ════════════════════ -->
 <div class="panel" id="panel-late">
 <div class="wrap">
   <div style="margin-bottom:20px;">
-    <div class="page-title">⏰ Late Tracking Report</div>
-    <div class="page-sub">Select work start time and date range to see who arrived late and by how many minutes</div>
+    <div class="page-title">⏰ Late Tracking &amp; Hours Worked</div>
+    <div class="page-sub">Track lateness, early departures and total hours worked per employee</div>
   </div>
+
+  <!-- ── LATE TRACKING ── -->
   <div class="box">
-    <div class="box-head"><div class="box-title">Report Settings</div></div>
-    <div class="late-controls">
+    <div class="box-head"><div class="box-title">🕐 Late Arrival Report</div></div>
+    <div class="ctrl-row">
       <div class="ctrl-group"><div class="ctrl-lbl">Work Start Time</div><input type="time" class="ctrl-input" id="work-start" value="09:00"></div>
+      <div class="ctrl-group"><div class="ctrl-lbl">Work End Time</div><input type="time" class="ctrl-input" id="work-end" value="17:00"></div>
       <div class="ctrl-group"><div class="ctrl-lbl">From Date</div><input type="date" class="ctrl-input" id="late-from"></div>
       <div class="ctrl-group"><div class="ctrl-lbl">To Date</div><input type="date" class="ctrl-input" id="late-to"></div>
-      <button class="run-btn" onclick="runLateReport()">▶ Run Report</button>
+      <button class="run-btn" onclick="runLateReport()">▶ Run</button>
     </div>
-    <div style="padding:12px 20px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);">
-      <span style="font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px;align-self:center;">Quick:</span>
+    <!-- quick picks + name filter -->
+    <div class="filters-bar">
+      <span class="filter-label">Quick:</span>
       <button class="icon-btn" onclick="setRange('today')">Today</button>
       <button class="icon-btn" onclick="setRange('week')">This Week</button>
       <button class="icon-btn" onclick="setRange('2week')">Last 2 Weeks</button>
       <button class="icon-btn" onclick="setRange('month')">This Month</button>
+      <div class="filter-sep"></div>
+      <span class="filter-label">Employee:</span>
+      <select class="filter-sel" id="late-filter-name" onchange="runLateReport()" style="min-width:140px;">
+        <option value="">All Employees</option>
+      </select>
     </div>
     <div class="late-summary" id="late-summary" style="display:none;">
-      <div class="ls-card"><div class="ls-n" style="color:var(--red)" id="ls-late-count">0</div><div class="ls-l">Late Instances</div></div>
-      <div class="ls-card"><div class="ls-n" style="color:var(--amber)" id="ls-total-mins">0</div><div class="ls-l">Total Late Mins</div></div>
+      <div class="ls-card"><div class="ls-n" style="color:var(--red)" id="ls-late-count">0</div><div class="ls-l">Late Arrivals</div></div>
+      <div class="ls-card"><div class="ls-n" style="color:var(--amber)" id="ls-total-late-mins">0</div><div class="ls-l">Total Late Mins</div></div>
+      <div class="ls-card"><div class="ls-n" style="color:var(--red)" id="ls-early-count">0</div><div class="ls-l">Early Departures</div></div>
       <div class="ls-card"><div class="ls-n" style="color:var(--green)" id="ls-on-time">0</div><div class="ls-l">On Time Days</div></div>
     </div>
     <div style="overflow-x:auto;" id="late-table-wrap" style="display:none;">
-      <table class="tbl"><thead><tr><th>Employee</th><th>Date</th><th>Scheduled</th><th>Clocked In</th><th>Late By</th><th>Status</th></tr></thead>
-      <tbody id="late-body"></tbody></table>
+      <table class="tbl"><thead><tr>
+        <th>Employee</th><th>Date</th><th>Scheduled In</th><th>Clocked In</th><th>Late By</th>
+        <th>Scheduled Out</th><th>Clocked Out</th><th>Left Early</th><th>Status</th>
+      </tr></thead><tbody id="late-body"></tbody></table>
     </div>
-    <div class="empty" id="late-empty" style="display:none;"><div class="empty-i">✅</div>No late arrivals in this period!</div>
-    <div class="empty" id="late-placeholder"><div class="empty-i">⏰</div>Set a date range above and click Run Report.</div>
+    <div class="empty" id="late-empty" style="display:none;"><div class="empty-i">✅</div>No late arrivals or early departures in this period!</div>
+    <div class="empty" id="late-placeholder"><div class="empty-i">⏰</div>Set a date range above and click Run.</div>
+  </div>
+
+  <!-- ── HOURS WORKED ── -->
+  <div class="box hours-section">
+    <div class="section-hdr">
+      <div>
+        <div class="section-hdr-title">⏱ Hours Worked Calculator</div>
+        <div class="section-hdr-sub">Select an employee and date range to calculate total hours worked</div>
+      </div>
+    </div>
+    <div class="hours-controls">
+      <div class="ctrl-group"><div class="ctrl-lbl">Employee</div>
+        <select class="ctrl-sel" id="hours-emp">
+          <option value="">— Choose Employee —</option>
+        </select>
+      </div>
+      <div class="ctrl-group"><div class="ctrl-lbl">From Date</div><input type="date" class="ctrl-input" id="hours-from"></div>
+      <div class="ctrl-group"><div class="ctrl-lbl">To Date</div><input type="date" class="ctrl-input" id="hours-to"></div>
+      <button class="run-btn" onclick="runHoursReport()">▶ Calculate</button>
+    </div>
+    <div class="hours-summary" id="hours-summary" style="display:none;">
+      <div class="hs-card"><div class="hs-n" id="hs-total">0h 0m</div><div class="hs-l">Total Hours Worked</div></div>
+      <div class="hs-card"><div class="hs-n" id="hs-days">0</div><div class="hs-l">Days Attended</div></div>
+      <div class="hs-card"><div class="hs-n" id="hs-avg">0h 0m</div><div class="hs-l">Avg Hours / Day</div></div>
+    </div>
+    <div style="overflow-x:auto;" id="hours-table-wrap" style="display:none;">
+      <table class="tbl"><thead><tr>
+        <th>Date</th><th>First Clock In</th><th>Last Clock Out</th><th>Hours Worked</th><th>Sessions</th>
+      </tr></thead><tbody id="hours-body"></tbody></table>
+    </div>
+    <div class="empty" id="hours-empty" style="display:none;"><div class="empty-i">📭</div>No clock-in records found for this period.</div>
+    <div class="empty" id="hours-placeholder"><div class="empty-i">⏱</div>Select an employee and date range above.</div>
   </div>
 </div>
 </div>
 
-<!-- ── PANEL: LOCATION ── -->
+<!-- ════════════════════ PANEL: LOCATION ════════════════════ -->
 <div class="panel" id="panel-location">
 <div class="wrap">
   <div style="margin-bottom:20px;">
     <div class="page-title">📍 Workplace Location</div>
-    <div class="page-sub">Click on the map to set where employees must be to clock in/out</div>
+    <div class="page-sub">Click the map to set where employees must be to clock in/out</div>
   </div>
   <div class="box">
-    <div class="box-head"><div class="box-title">Set Location</div><span class="badge b-amber">Click map to update pin</span></div>
+    <div class="box-head"><div class="box-title">Set Location</div><span class="badge b-amber">Click map to move pin</span></div>
     <div class="loc-inner">
       <div class="map-wrap">
         <div class="map-hint">📍 Click anywhere to move the workplace pin</div>
@@ -270,14 +368,14 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:1px;backgroun
       </div>
       <div class="radius-row">
         <span class="radius-lbl">Allowed radius (meters):</span>
-        <input type="number" class="radius-in" id="radius-input" value="100" min="10" max="1000">
+        <input type="number" class="radius-in" id="radius-input" value="50" min="10" max="1000">
       </div>
       <button class="save-loc-btn" onclick="saveLocation()">💾 Save Location</button>
       <div class="code-box" id="code-box">
         After saving, copy these lines into <code>employee.html</code>:<br>
         <code>const WORK_LAT = <span id="cb-lat">...</span>;</code><br>
         <code>const WORK_LNG = <span id="cb-lng">...</span>;</code><br>
-        <code>const RADIUS_M = <span id="cb-rad">...</span>;</code>
+        <code>const RADIUS_M = <span id="cb-rad">50</span>;</code>
       </div>
     </div>
   </div>
@@ -288,28 +386,34 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:1px;backgroun
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
+// ═══════════════════════════════════
+// SUPABASE CONFIG
+// ═══════════════════════════════════
 const SUPA_URL='https://ikyddvnjcshwpgfbdriy.supabase.co';
 const SUPA_KEY='sb_publishable_2MkhmYUU7GX6w8vqMXDVuw_kA4zPu5i';
 const HEADERS={'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Prefer':'return=minimal'};
 
-// ═══════════════════════════════════
-// NEW SHOP LOCATION & RADIUS
-// ═══════════════════════════════════
-let WORK_LAT = 31.957827358280788;
-let WORK_LNG = 35.86051762104035;
-let RADIUS_M = 100;
-let employees=[],allLogs=[];
+let WORK_LAT=32.00295664301519, WORK_LNG=35.85710219794321, RADIUS_M=50;
+let employees=[], allLogs=[];
+let logTypeFilter='all';
+
 const initials=n=>(n||'?').split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
 const cv=i=>'cv'+(i%6);
 const todayStr=()=>new Date().toISOString().split('T')[0];
 const fmtDate=d=>{try{return new Date(d+'T12:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});}catch(e){return d;}};
 const pad=n=>String(n).padStart(2,'0');
 const fmtD=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const timeToMins=t=>{const[h,m]=String(t).split(':').map(Number);return h*60+(m||0);};
+const minsToHM=m=>`${Math.floor(m/60)}h ${m%60}m`;
 
-function tickNav(){const n=new Date();document.getElementById('nav-clock').textContent=n.toLocaleTimeString('en-US',{hour12:false});document.getElementById('page-sub').textContent=n.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});}
-setInterval(tickNav,1000);tickNav();
+function tickNav(){
+  const n=new Date();
+  document.getElementById('nav-clock').textContent=n.toLocaleTimeString('en-US',{hour12:false});
+  document.getElementById('page-sub').textContent=n.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+}
+setInterval(tickNav,1000); tickNav();
 
-// TABS
+// ─── TABS ───────────────────────────
 function switchTab(name){
   document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['attendance','late','location'][i]===name));
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
@@ -317,14 +421,27 @@ function switchTab(name){
   if(name==='location')setTimeout(initMap,50);
 }
 
-// SUPABASE
-async function sbGet(table,filters=''){const res=await fetch(`${SUPA_URL}/rest/v1/${table}?select=*${filters}`,{headers:HEADERS});if(!res.ok)throw new Error(await res.text());return res.json();}
-async function sbInsert(table,record){const res=await fetch(`${SUPA_URL}/rest/v1/${table}`,{method:'POST',headers:HEADERS,body:JSON.stringify(record)});if(!res.ok)throw new Error(await res.text());}
-async function sbDelete(table,id){const res=await fetch(`${SUPA_URL}/rest/v1/${table}?id=eq.${encodeURIComponent(id)}`,{method:'DELETE',headers:HEADERS});if(!res.ok)throw new Error(await res.text());}
+// ─── SUPABASE ───────────────────────
+async function sbGet(table,filters=''){
+  const res=await fetch(`${SUPA_URL}/rest/v1/${table}?select=*${filters}`,{headers:HEADERS});
+  if(!res.ok)throw new Error(await res.text());
+  return res.json();
+}
+async function sbInsert(table,record){
+  const res=await fetch(`${SUPA_URL}/rest/v1/${table}`,{method:'POST',headers:HEADERS,body:JSON.stringify(record)});
+  if(!res.ok)throw new Error(await res.text());
+}
+async function sbDelete(table,id){
+  const res=await fetch(`${SUPA_URL}/rest/v1/${table}?id=eq.${encodeURIComponent(id)}`,{method:'DELETE',headers:HEADERS});
+  if(!res.ok)throw new Error(await res.text());
+}
 
+// ─── LOAD ───────────────────────────
 async function loadAll(){
-  const[emps,logs]=await Promise.all([sbGet('employees','&order=name.asc'),sbGet('logs','&order=time.asc')]);
-  employees=emps;allLogs=logs;
+  const[emps,logs]=await Promise.all([sbGet('employees','&order=name.asc'),sbGet('logs','&order=date.asc,time.asc')]);
+  employees=emps;
+  allLogs=logs;
+  populateNameFilters();
 }
 
 async function init(){
@@ -341,8 +458,19 @@ async function refreshAll(){
   btn.innerHTML='↻ Refresh';
 }
 
+// ─── POPULATE NAME DROPDOWNS ────────
+function populateNameFilters(){
+  const opts='<option value="">All Employees</option>'+employees.map(e=>`<option value="${e.id}">${e.name}</option>`).join('');
+  const hoursOpts='<option value="">— Choose Employee —</option>'+employees.map(e=>`<option value="${e.id}">${e.name}</option>`).join('');
+  const lateOpts='<option value="">All Employees</option>'+employees.map(e=>`<option value="${e.id}">${e.name}</option>`).join('');
+  document.getElementById('log-filter-name').innerHTML=opts;
+  document.getElementById('late-filter-name').innerHTML=lateOpts;
+  document.getElementById('hours-emp').innerHTML=hoursOpts;
+}
+
 function renderAll(){renderStats();renderAttendance();renderLogs();renderEmpList();renderFeed();}
 
+// ─── STATS ──────────────────────────
 function renderStats(){
   const date=document.getElementById('date-filter').value||todayStr();
   const dl=allLogs.filter(l=>l.date===date);
@@ -355,6 +483,7 @@ function renderStats(){
   document.getElementById('s-abs').textContent=Math.max(0,employees.length-empIds.length);
 }
 
+// ─── ATTENDANCE TABLE ────────────────
 function renderAttendance(){
   const date=document.getElementById('date-filter').value||todayStr();
   document.getElementById('att-date-badge').textContent=fmtDate(date);
@@ -368,7 +497,7 @@ function renderAttendance(){
     const inL=ml.find(l=>l.type==='in');
     const outL=[...ml].reverse().find(l=>l.type==='out');
     let dur='—',pct=0;
-    if(inL&&outL){const[ih,im]=inL.time.split(':').map(Number),[oh,om]=outL.time.split(':').map(Number);let mins=(oh*60+om)-(ih*60+im);if(mins<0)mins+=1440;dur=`${Math.floor(mins/60)}h${mins%60?` ${mins%60}m`:''}`;pct=Math.min(mins/480*100,100);}
+    if(inL&&outL){const[ih,im]=inL.time.split(':').map(Number),[oh,om]=outL.time.split(':').map(Number);let mins=(oh*60+om)-(ih*60+im);if(mins<0)mins+=1440;dur=minsToHM(mins);pct=Math.min(mins/480*100,100);}
     const chip=!ml.length?`<span class="chip c-abs">Absent</span>`:last.type==='in'?`<span class="chip c-in">● Working</span>`:`<span class="chip c-out">✓ Done</span>`;
     return `<tr><td><div class="ec"><div class="av ${cv(i)}">${initials(emp.name)}</div><div><div class="en">${emp.name}</div><div class="er">${emp.role||''}</div></div></div></td>
     <td><span class="mono">${inL?inL.time:'—'}</span></td><td><span class="mono">${outL?outL.time:'—'}</span></td>
@@ -377,20 +506,51 @@ function renderAttendance(){
   }).join('');
 }
 
+// ─── LOG TYPE FILTER ────────────────
+function setLogType(type){
+  logTypeFilter=type;
+  ['all','in','out'].forEach(t=>document.getElementById('fc-'+t).classList.toggle('active',t===type));
+  renderLogs();
+}
+
+// ─── LOGS TABLE (with delete) ────────
+// Sorted: oldest date first, then by time within date
 function renderLogs(){
-  const date=document.getElementById('date-filter').value||todayStr();
-  const filtered=allLogs.filter(l=>l.date===date).sort((a,b)=>b.time.localeCompare(a.time));
+  const nameFilter=document.getElementById('log-filter-name').value;
+  let filtered=[...allLogs].sort((a,b)=>a.date.localeCompare(b.date)||a.time.localeCompare(b.time));
+  if(nameFilter) filtered=filtered.filter(l=>String(l.empId)===String(nameFilter));
+  if(logTypeFilter!=='all') filtered=filtered.filter(l=>l.type===logTypeFilter);
+
   document.getElementById('logs-count').textContent=filtered.length+' events';
   const tbody=document.getElementById('logs-body'),empty=document.getElementById('logs-empty');
   if(!filtered.length){tbody.innerHTML='';empty.style.display='';return;}
   empty.style.display='none';
-  tbody.innerHTML=filtered.map(l=>`<tr>
+  tbody.innerHTML=filtered.map(l=>`<tr id="row-${l.id}">
     <td><div class="ec"><div class="av cv0" style="width:28px;height:28px;font-size:10px;">${initials(l.empName)}</div><span style="font-weight:600">${l.empName||'?'}</span></div></td>
     <td><span class="chip ${l.type==='in'?'c-in':'c-out'}">${l.type==='in'?'▶ IN':'■ OUT'}</span></td>
+    <td><span class="mono" style="color:var(--muted)">${l.date}</span></td>
     <td><span class="mono">${l.time}</span></td>
-    <td><span class="mono" style="color:var(--muted)">${l.dist||'—'}m</span></td></tr>`).join('');
+    <td><span class="mono" style="color:var(--muted)">${l.dist||'—'}m</span></td>
+    <td><button class="row-del" onclick="deleteLog('${l.id}')" title="Delete this record">🗑</button></td>
+  </tr>`).join('');
 }
 
+async function deleteLog(id){
+  if(!confirm('Delete this clock record? This cannot be undone.'))return;
+  const row=document.getElementById('row-'+id);
+  if(row)row.classList.add('deleting');
+  try{
+    await sbDelete('logs',id);
+    allLogs=allLogs.filter(l=>String(l.id)!==String(id));
+    renderLogs();renderAttendance();renderStats();renderFeed();
+    notify('🗑 Record Deleted','Clock event removed.','ok');
+  }catch(e){
+    if(row)row.classList.remove('deleting');
+    notify('⚠️ Failed',e.message.slice(0,80),'err');
+  }
+}
+
+// ─── LIVE FEED ───────────────────────
 function renderFeed(){
   const tl=allLogs.filter(l=>l.date===todayStr()).sort((a,b)=>b.time.localeCompare(a.time)).slice(0,25);
   const ul=document.getElementById('feed-ul');
@@ -398,6 +558,7 @@ function renderFeed(){
   ul.innerHTML=tl.map(l=>`<li class="feed-li"><div class="fdot ${l.type}"></div><div class="fb"><span class="fn">${l.empName||'?'}</span> <span class="fa">${l.type==='in'?'clocked in':'clocked out'}</span></div><div class="ft">${l.time}</div></li>`).join('');
 }
 
+// ─── EMPLOYEES ───────────────────────
 function renderEmpList(){
   const ul=document.getElementById('emp-ul'),empty=document.getElementById('emp-empty');
   document.getElementById('emp-count-badge').textContent=employees.length+' staff';
@@ -416,18 +577,19 @@ async function addEmployee(){
   const dept=document.getElementById('new-dept').value;
   if(!name){notify('⚠️ Missing Name','Enter employee name first.','err');return;}
   const btn=document.getElementById('add-btn');btn.disabled=true;btn.classList.add('loading');
+  const rec={id:Date.now().toString(),name,role:role||'Staff',dept};
   try{
-    await sbInsert('employees',{id:Date.now().toString(),name,role:role||'Staff',dept});
-    employees.push({id:Date.now().toString(),name,role:role||'Staff',dept});
+    await sbInsert('employees',rec);
+    await loadAll();
+    renderEmpList();renderStats();renderAttendance();
     document.getElementById('new-name').value='';document.getElementById('new-role').value='';
-    await loadAll();renderEmpList();renderStats();renderAttendance();
     notify('✅ Employee Added',`${name} registered.`,'ok');
   }catch(e){notify('⚠️ Save Failed',e.message.slice(0,90),'err');}
   btn.disabled=false;btn.classList.remove('loading');
 }
 
 async function deleteEmployee(id,name){
-  if(!confirm(`Remove ${name}?`))return;
+  if(!confirm(`Remove ${name}? This also deletes all their clock records.`))return;
   try{
     await sbDelete('employees',id);
     await fetch(`${SUPA_URL}/rest/v1/logs?empId=eq.${encodeURIComponent(id)}`,{method:'DELETE',headers:HEADERS});
@@ -437,9 +599,7 @@ async function deleteEmployee(id,name){
   }catch(e){notify('⚠️ Failed',e.message.slice(0,80),'err');}
 }
 
-// ── LATE TRACKING ──────────────────
-function timeToMins(t){const[h,m]=String(t).split(':').map(Number);return h*60+(m||0);}
-
+// ─── QUICK DATE RANGE ───────────────
 function setRange(type){
   const now=new Date();
   if(type==='today'){document.getElementById('late-from').value=document.getElementById('late-to').value=fmtD(now);}
@@ -448,54 +608,155 @@ function setRange(type){
   else if(type==='month'){document.getElementById('late-from').value=fmtD(new Date(now.getFullYear(),now.getMonth(),1));document.getElementById('late-to').value=fmtD(now);}
 }
 
+// ─── LATE REPORT ─────────────────────
+// Rows sorted oldest→newest date
 function runLateReport(){
   const startTime=document.getElementById('work-start').value||'09:00';
+  const endTime  =document.getElementById('work-end').value  ||'17:00';
   const from=document.getElementById('late-from').value;
-  const to=document.getElementById('late-to').value;
+  const to  =document.getElementById('late-to').value;
+  const nameFilter=document.getElementById('late-filter-name').value;
   if(!from||!to){notify('⚠️ Missing dates','Please select from and to dates.','err');return;}
+
   const startMins=timeToMins(startTime);
+  const endMins  =timeToMins(endTime);
   const rows=[];
   const d0=new Date(from+'T12:00'),d1=new Date(to+'T12:00');
+
   for(let d=new Date(d0);d<=d1;d.setDate(d.getDate()+1)){
     const dateStr=d.toISOString().split('T')[0];
     const dayLogs=allLogs.filter(l=>l.date===dateStr);
-    employees.forEach(emp=>{
+    const empList=nameFilter?employees.filter(e=>String(e.id)===String(nameFilter)):employees;
+
+    empList.forEach(emp=>{
       const ml=dayLogs.filter(l=>String(l.empId)===String(emp.id)).sort((a,b)=>a.time.localeCompare(b.time));
-      const firstIn=ml.find(l=>l.type==='in');
-      if(!firstIn)return;
-      const lateBy=timeToMins(firstIn.time)-startMins;
-      rows.push({emp,date:dateStr,scheduled:startTime,clockIn:firstIn.time,lateBy});
+      const firstIn =ml.find(l=>l.type==='in');
+      const lastOut =[...ml].reverse().find(l=>l.type==='out');
+      if(!firstIn)return; // absent
+
+      const lateBy   = Math.max(0, timeToMins(firstIn.time)-startMins);
+      const earlyBy  = lastOut ? Math.max(0, endMins-timeToMins(lastOut.time)) : null;
+      rows.push({emp,date:dateStr,startTime,endTime,clockIn:firstIn.time,clockOut:lastOut?lastOut.time:null,lateBy,earlyBy});
     });
   }
-  rows.sort((a,b)=>b.lateBy-a.lateBy);
-  const lateRows=rows.filter(r=>r.lateBy>0);
-  const onTimeRows=rows.filter(r=>r.lateBy<=0);
-  const totalMins=lateRows.reduce((s,r)=>s+r.lateBy,0);
+
+  // Sort oldest first
+  rows.sort((a,b)=>a.date.localeCompare(b.date)||a.clockIn.localeCompare(b.clockIn));
+
+  const lateRows =rows.filter(r=>r.lateBy>0);
+  const earlyRows=rows.filter(r=>r.earlyBy!==null&&r.earlyBy>0);
+  const onTime   =rows.filter(r=>r.lateBy===0&&(r.earlyBy===null||r.earlyBy===0));
+  const totalLateMins=lateRows.reduce((s,r)=>s+r.lateBy,0);
+
   document.getElementById('late-summary').style.display='';
   document.getElementById('ls-late-count').textContent=lateRows.length;
-  document.getElementById('ls-total-mins').textContent=totalMins+' min';
-  document.getElementById('ls-on-time').textContent=onTimeRows.length;
+  document.getElementById('ls-total-late-mins').textContent=totalLateMins+' min';
+  document.getElementById('ls-early-count').textContent=earlyRows.length;
+  document.getElementById('ls-on-time').textContent=onTime.length;
   document.getElementById('late-placeholder').style.display='none';
+
   const tableWrap=document.getElementById('late-table-wrap');
   const emptyEl=document.getElementById('late-empty');
+
   if(!rows.length){tableWrap.style.display='none';emptyEl.style.display='';return;}
   emptyEl.style.display='none';tableWrap.style.display='';
+
   const maxLate=Math.max(...lateRows.map(r=>r.lateBy),1);
   document.getElementById('late-body').innerHTML=rows.map((r,i)=>{
-    const isLate=r.lateBy>0;
-    const pct=isLate?Math.min(r.lateBy/maxLate*100,100):100;
-    const chip=isLate?`<span class="chip c-late">⚠ ${r.lateBy} min late</span>`:`<span class="chip c-ontime">✓ On Time</span>`;
-    const bar=`<div class="late-bar"><div class="late-track"><div class="late-fill-bar${isLate?'':' ok'}" style="width:${pct}%"></div></div><span class="late-mins${isLate?'':' ok'}">${isLate?r.lateBy+' min':'On time'}</span></div>`;
+    const lateBar=r.lateBy>0
+      ?`<div class="late-bar"><div class="late-track"><div class="late-fill-bar" style="width:${Math.min(r.lateBy/maxLate*100,100)}%"></div></div><span class="late-mins">${r.lateBy} min</span></div>`
+      :`<span class="mono ok" style="color:var(--green)">On time</span>`;
+    const earlyCell=r.earlyBy===null
+      ?`<span style="color:var(--muted)">—</span>`
+      :r.earlyBy>0
+        ?`<span class="mono" style="color:var(--red)">${r.earlyBy} min early</span>`
+        :`<span class="mono" style="color:var(--green)">On time</span>`;
+    let statusChip='';
+    if(r.lateBy>0&&r.earlyBy>0) statusChip=`<span class="chip c-late">⚠ Late + Early out</span>`;
+    else if(r.lateBy>0) statusChip=`<span class="chip c-late">⚠ Late</span>`;
+    else if(r.earlyBy>0) statusChip=`<span class="chip" style="background:rgba(239,68,68,0.1);color:var(--red)">↩ Left Early</span>`;
+    else statusChip=`<span class="chip c-ontime">✓ On Time</span>`;
     return `<tr>
       <td><div class="ec"><div class="av ${cv(i%6)}" style="width:28px;height:28px;font-size:10px;">${initials(r.emp.name)}</div><span style="font-weight:600">${r.emp.name}</span></div></td>
       <td><span class="mono" style="color:var(--muted)">${r.date}</span></td>
-      <td><span class="mono">${r.scheduled}</span></td>
+      <td><span class="mono">${r.startTime}</span></td>
       <td><span class="mono">${r.clockIn}</span></td>
-      <td>${bar}</td><td>${chip}</td></tr>`;
+      <td>${lateBar}</td>
+      <td><span class="mono">${r.endTime}</span></td>
+      <td><span class="mono">${r.clockOut||'—'}</span></td>
+      <td>${earlyCell}</td>
+      <td>${statusChip}</td>
+    </tr>`;
   }).join('');
 }
 
-// ── LOCATION MAP (Leaflet — no API key) ──
+// ─── HOURS WORKED REPORT ─────────────
+// Per employee, per day, oldest first
+function runHoursReport(){
+  const empId=document.getElementById('hours-emp').value;
+  const from =document.getElementById('hours-from').value;
+  const to   =document.getElementById('hours-to').value;
+  if(!empId){notify('⚠️ No Employee','Please choose an employee.','err');return;}
+  if(!from||!to){notify('⚠️ Missing dates','Please select from and to dates.','err');return;}
+
+  const emp=employees.find(e=>String(e.id)===String(empId));
+  const d0=new Date(from+'T12:00'),d1=new Date(to+'T12:00');
+  const rows=[];
+
+  for(let d=new Date(d0);d<=d1;d.setDate(d.getDate()+1)){
+    const dateStr=d.toISOString().split('T')[0];
+    const ml=allLogs.filter(l=>l.date===dateStr&&String(l.empId)===String(empId)).sort((a,b)=>a.time.localeCompare(b.time));
+    const firstIn=ml.find(l=>l.type==='in');
+    const lastOut=[...ml].reverse().find(l=>l.type==='out');
+    if(!firstIn)continue;
+
+    // Count sessions (in/out pairs)
+    let sessions=0,sessionMins=0;
+    let openIn=null;
+    ml.forEach(ev=>{
+      if(ev.type==='in')openIn=ev;
+      else if(ev.type==='out'&&openIn){sessions++;sessionMins+=timeToMins(ev.time)-timeToMins(openIn.time);openIn=null;}
+    });
+
+    // If still open (no clock out), count to now
+    let workedMins=sessionMins;
+    if(!lastOut&&firstIn){
+      const nowMins=new Date().getHours()*60+new Date().getMinutes();
+      workedMins+=Math.max(0,nowMins-timeToMins(firstIn.time));
+    }
+
+    rows.push({date:dateStr,firstIn:firstIn.time,lastOut:lastOut?lastOut.time:null,workedMins,sessions});
+  }
+
+  const totalMins=rows.reduce((s,r)=>s+r.workedMins,0);
+  const avgMins=rows.length?Math.round(totalMins/rows.length):0;
+
+  document.getElementById('hours-summary').style.display='';
+  document.getElementById('hs-total').textContent=minsToHM(totalMins);
+  document.getElementById('hs-days').textContent=rows.length;
+  document.getElementById('hs-avg').textContent=minsToHM(avgMins);
+  document.getElementById('hours-placeholder').style.display='none';
+
+  const tableWrap=document.getElementById('hours-table-wrap');
+  const emptyEl=document.getElementById('hours-empty');
+  if(!rows.length){tableWrap.style.display='none';emptyEl.style.display='';return;}
+  emptyEl.style.display='none';tableWrap.style.display='';
+
+  const maxMins=Math.max(...rows.map(r=>r.workedMins),1);
+  document.getElementById('hours-body').innerHTML=rows.map(r=>{
+    const pct=Math.min(r.workedMins/maxMins*100,100);
+    const still=!r.lastOut?'<span style="color:var(--amber);font-size:11px;margin-left:6px;">● still in</span>':'';
+    return `<tr>
+      <td><span class="mono" style="color:var(--muted)">${r.date}</span></td>
+      <td><span class="mono">${r.firstIn}</span></td>
+      <td><span class="mono">${r.lastOut||'—'}</span>${still}</td>
+      <td><div class="dur-wrap"><div class="dur-track"><div class="dur-fill" style="width:${pct}%"></div></div><span class="mono">${minsToHM(r.workedMins)}</span></div></td>
+      <td><span class="mono" style="color:var(--muted)">${r.sessions} session${r.sessions!==1?'s':''}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+// ─── LOCATION MAP ────────────────────
 let map=null,marker=null,circle=null;
 let pendingLat=WORK_LAT,pendingLng=WORK_LNG;
 
@@ -525,10 +786,10 @@ function saveLocation(){
   WORK_LAT=pendingLat;WORK_LNG=pendingLng;RADIUS_M=radius;
   if(circle)circle.setRadius(radius);
   updateCoordDisplay(pendingLat,pendingLng);
-  notify('✅ Location Set',`Lat: ${pendingLat.toFixed(5)}, Lng: ${pendingLng.toFixed(5)} — Copy codes below to employee.html`,'ok');
+  notify('✅ Saved!',`Copy the 3 lines below into employee.html`,'ok');
 }
 
-// NOTIFY
+// ─── NOTIFY ──────────────────────────
 let nT;
 function notify(title,body,type){
   const icons={ok:'✅',err:'⚠️'};
@@ -540,8 +801,12 @@ function notify(title,body,type){
   nT=setTimeout(()=>el.classList.remove('show'),5000);
 }
 
+// Init date defaults
 document.getElementById('late-from').value=todayStr();
 document.getElementById('late-to').value=todayStr();
+document.getElementById('hours-from').value=fmtD(new Date(new Date().getFullYear(),new Date().getMonth(),1));
+document.getElementById('hours-to').value=todayStr();
+
 init();
 </script>
 </body>
