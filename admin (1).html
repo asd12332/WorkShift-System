@@ -448,7 +448,6 @@ async function init(){
   try{await loadAll();document.getElementById('date-filter').value=todayStr();renderAll();}
   catch(e){document.getElementById('loader-txt').textContent='❌ '+e.message;return;}
   document.getElementById('page-loader').style.display='none';
-  setInterval(async()=>{await loadAll();renderAll();},30000);
 }
 
 async function refreshAll(){
