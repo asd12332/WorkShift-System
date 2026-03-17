@@ -517,7 +517,7 @@ function setLogType(type){
 // Sorted: oldest date first, then by time within date
 function renderLogs(){
   const nameFilter=document.getElementById('log-filter-name').value;
-  let filtered=[...allLogs].sort((a,b)=>a.date.localeCompare(b.date)||a.time.localeCompare(b.time));
+  let filtered=[...allLogs].sort((a,b)=>b.date.localeCompare(a.date)||b.time.localeCompare(a.time));
   if(nameFilter) filtered=filtered.filter(l=>String(l.empId)===String(nameFilter));
   if(logTypeFilter!=='all') filtered=filtered.filter(l=>l.type===logTypeFilter);
 
