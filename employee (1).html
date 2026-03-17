@@ -192,7 +192,7 @@ function tick() {
 }
 setInterval(tick, 1000); tick();
 
-const todayStr = () => new Date().toISOString().split('T')[0];
+const todayStr = () => { const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); };
 const nowTime  = () => new Date().toLocaleTimeString('en-US', { hour12: false });
 
 function haversineM(a, b, c, d) {
@@ -252,14 +252,17 @@ async function init() {
   try {
     // Today's logs for the activity display
     todayLogs = await sbGet('logs', `&date=eq.${todayStr()}&order=time.asc`);
-    // Also fetch the very last log for each employee across ALL dates
-    // so we can detect overnight / multi-day shifts
-    const allRecent = await sbGet('logs', `&order=date.desc,time.desc&limit=500`);
-    // Build a map: empId → their single most recent log (any date)
+
+    // For working-state detection: fetch each employee's single most recent log
+    // We query per employee so ordering is exact and no record is missed
     lastLog = {};
-    allRecent.forEach(l => {
-      if (!lastLog[String(l.empId)]) lastLog[String(l.empId)] = l;
-    });
+    await Promise.all(employees.map(async emp => {
+      try {
+        const rows = await sbGet('logs', `&empId=eq.${encodeURIComponent(emp.id)}&order=date.desc,time.desc&limit=1`);
+        if (rows && rows.length) lastLog[String(emp.id)] = rows[0];
+      } catch(_) {}
+    }));
+
     setStep(`Ready ✓ — ${todayLogs.length} events today`);
   } catch(e) {
     setStep('❌ ' + e.message);
