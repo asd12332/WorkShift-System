@@ -834,34 +834,54 @@ function runHoursReport(){
   if(!empId){notify('⚠️ No Employee','Please choose an employee.','err');return;}
   if(!from||!to){notify('⚠️ Missing dates','Please select from and to dates.','err');return;}
 
-  const emp=employees.find(e=>String(e.id)===String(empId));
-  const d0=new Date(from+'T12:00'),d1=new Date(to+'T12:00');
-  const rows=[];
+  // Get ALL logs for this employee sorted by date+time (chronological)
+  // We go a bit beyond the range to catch cross-midnight clock-outs
+  const empLogs=allLogs
+    .filter(l=>String(l.empId)===String(empId))
+    .sort((a,b)=>a.date.localeCompare(b.date)||a.time.localeCompare(b.time));
 
-  for(let d=new Date(d0);d<=d1;d.setDate(d.getDate()+1)){
-    const dateStr=d.toISOString().split('T')[0];
-    const ml=allLogs.filter(l=>l.date===dateStr&&String(l.empId)===String(empId)).sort((a,b)=>a.time.localeCompare(b.time));
-    const firstIn=ml.find(l=>l.type==='in');
-    const lastOut=[...ml].reverse().find(l=>l.type==='out');
-    if(!firstIn)continue;
+  // Convert a log entry to total minutes since epoch-like value for comparison
+  const logToMins=l=>{ const[h,m,s]=l.time.split(':').map(Number); const d=new Date(l.date+'T12:00'); return d.getTime()/60000 + h*60+m+(s||0)/60; };
 
-    // Count sessions (in/out pairs)
-    let sessions=0,sessionMins=0;
-    let openIn=null;
-    ml.forEach(ev=>{
-      if(ev.type==='in')openIn=ev;
-      else if(ev.type==='out'&&openIn){sessions++;sessionMins+=timeToMins(ev.time)-timeToMins(openIn.time);openIn=null;}
-    });
-
-    // If still open (no clock out), count to now
-    let workedMins=sessionMins;
-    if(!lastOut&&firstIn){
-      const nowMins=new Date().getHours()*60+new Date().getMinutes();
-      workedMins+=Math.max(0,nowMins-timeToMins(firstIn.time));
+  // Build sessions: pair each IN with the very next OUT chronologically (any date)
+  const sessions=[];
+  let openIn=null;
+  empLogs.forEach(ev=>{
+    if(ev.type==='in'){
+      // If there was an unclosed IN, close it at midnight of that day (treat as full shift)
+      if(openIn) sessions.push({inLog:openIn,outLog:null,mins:0,unclosed:true});
+      openIn=ev;
+    } else if(ev.type==='out'&&openIn){
+      const mins=Math.round(logToMins(ev)-logToMins(openIn));
+      if(mins>0) sessions.push({inLog:openIn,outLog:ev,mins,unclosed:false});
+      openIn=null;
     }
-
-    rows.push({date:dateStr,firstIn:firstIn.time,lastOut:lastOut?lastOut.time:null,workedMins,sessions});
+  });
+  // If still clocked in, add open session up to now
+  if(openIn){
+    const nowMins=new Date().getHours()*60+new Date().getMinutes();
+    const d=new Date(openIn.date+'T12:00');
+    const todayStart=new Date();todayStart.setHours(0,0,0,0);
+    const daysDiff=Math.round((todayStart-d)/(86400000));
+    const inMins=timeToMins(openIn.time);
+    const totalSinceIn=daysDiff*1440+nowMins-inMins;
+    sessions.push({inLog:openIn,outLog:null,mins:Math.max(0,totalSinceIn),unclosed:true});
   }
+
+  // Group sessions by the clock-IN date (the day the shift started)
+  const d0=new Date(from+'T12:00'),d1=new Date(to+'T12:00');
+  const rowMap={};
+  sessions.forEach(s=>{
+    const d=new Date(s.inLog.date+'T12:00');
+    if(d<d0||d>d1)return; // filter to selected range by IN date
+    const key=s.inLog.date;
+    if(!rowMap[key]) rowMap[key]={date:key,firstIn:s.inLog.time,lastOut:null,workedMins:0,sessions:0,hasOpen:false};
+    rowMap[key].workedMins+=s.mins;
+    if(!s.unclosed){rowMap[key].sessions++;rowMap[key].lastOut=s.outLog.time+' '+s.outLog.date;}
+    else rowMap[key].hasOpen=true;
+  });
+
+  const rows=Object.values(rowMap).sort((a,b)=>a.date.localeCompare(b.date));
 
   const totalMins=rows.reduce((s,r)=>s+r.workedMins,0);
   const avgMins=rows.length?Math.round(totalMins/rows.length):0;
@@ -880,11 +900,19 @@ function runHoursReport(){
   const maxMins=Math.max(...rows.map(r=>r.workedMins),1);
   document.getElementById('hours-body').innerHTML=rows.map(r=>{
     const pct=Math.min(r.workedMins/maxMins*100,100);
-    const still=!r.lastOut?'<span style="color:var(--amber);font-size:11px;margin-left:6px;">● still in</span>':'';
+    // lastOut may include the date if it was next day
+    let outDisplay='—';
+    let outNote='';
+    if(r.lastOut){
+      const parts=r.lastOut.split(' ');
+      outDisplay=parts[0];
+      if(parts[1]&&parts[1]!==r.date) outNote=`<span style="color:var(--amber);font-size:10px;margin-left:4px;">(${parts[1]})</span>`;
+    }
+    const still=r.hasOpen?'<span style="color:var(--amber);font-size:11px;margin-left:6px;">● still in</span>':'';
     return `<tr>
       <td><span class="mono" style="color:var(--muted)">${r.date}</span></td>
       <td><span class="mono">${r.firstIn}</span></td>
-      <td><span class="mono">${r.lastOut||'—'}</span>${still}</td>
+      <td><span class="mono">${outDisplay}</span>${outNote}${still}</td>
       <td><div class="dur-wrap"><div class="dur-track"><div class="dur-fill" style="width:${pct}%"></div></div><span class="mono">${minsToHM(r.workedMins)}</span></div></td>
       <td><span class="mono" style="color:var(--muted)">${r.sessions} session${r.sessions!==1?'s':''}</span></td>
     </tr>`;
