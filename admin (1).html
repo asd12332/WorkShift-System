@@ -499,7 +499,7 @@ async function sbDelete(table,id){
 
 // ─── LOAD ───────────────────────────
 async function loadAll(){
-  const[emps,logs]=await Promise.all([sbGet('employees','&order=name.asc'),sbGet('logs','&order=date.asc,time.asc')]);
+  const[emps,logs]=await Promise.all([sbGet('web_employees','&order=name.asc'),sbGet('web_logs','&order=date.asc,time.asc')]);
   employees=emps;
   allLogs=logs;
   populateNameFilters();
@@ -619,7 +619,7 @@ async function deleteLog(id){
   const row=document.getElementById('row-'+id);
   if(row)row.classList.add('deleting');
   try{
-    await sbDelete('logs',id);
+    await sbDelete('web_logs',id);
     allLogs=allLogs.filter(l=>String(l.id)!==String(id));
     renderLogs();renderAttendance();renderStats();renderFeed();
     notify('🗑 Record Deleted','Clock event removed.','ok');
@@ -666,7 +666,7 @@ async function saveEditLog(){
 
   try{
     // Supabase PATCH
-    const res=await fetch(`${SUPA_URL}/rest/v1/logs?id=eq.${encodeURIComponent(editingLogId)}`,{
+    const res=await fetch(`${SUPA_URL}/rest/v1/web_logs?id=eq.${encodeURIComponent(editingLogId)}`,{
       method:'PATCH',
       headers:{...HEADERS,'Prefer':'return=minimal'},
       body:JSON.stringify(patch)
@@ -714,7 +714,7 @@ async function addEmployee(){
   const btn=document.getElementById('add-btn');btn.disabled=true;btn.classList.add('loading');
   const rec={id:Date.now().toString(),name,role:role||'Staff',dept};
   try{
-    await sbInsert('employees',rec);
+    await sbInsert('web_employees',rec);
     await loadAll();
     renderEmpList();renderStats();renderAttendance();
     document.getElementById('new-name').value='';document.getElementById('new-role').value='';
@@ -726,8 +726,8 @@ async function addEmployee(){
 async function deleteEmployee(id,name){
   if(!confirm(`Remove ${name}? This also deletes all their clock records.`))return;
   try{
-    await sbDelete('employees',id);
-    await fetch(`${SUPA_URL}/rest/v1/logs?empId=eq.${encodeURIComponent(id)}`,{method:'DELETE',headers:HEADERS});
+    await sbDelete('web_employees',id);
+    await fetch(`${SUPA_URL}/rest/v1/web_logs?empId=eq.${encodeURIComponent(id)}`,{method:'DELETE',headers:HEADERS});
     employees=employees.filter(e=>String(e.id)!==String(id));
     allLogs=allLogs.filter(l=>String(l.empId)!==String(id));
     renderAll();notify('🗑 Removed',`${name} deleted.`,'ok');
