@@ -242,7 +242,7 @@ async function sbDelete(table, id) {
 async function init() {
   setStep('Loading employees...');
   try {
-    employees = await sbGet('employees', '&order=name.asc');
+    employees = await sbGet('web_employees', '&order=name.asc');
     setStep(`${employees.length} employees found. Loading logs...`);
   } catch(e) {
     setStep('❌ ' + e.message);
@@ -251,14 +251,14 @@ async function init() {
 
   try {
     // Today's logs for the activity display
-    todayLogs = await sbGet('logs', `&date=eq.${todayStr()}&order=time.asc`);
+    todayLogs = await sbGet('web_logs', `&date=eq.${todayStr()}&order=time.asc`);
 
     // For working-state detection: fetch each employee's single most recent log
     // We query per employee so ordering is exact and no record is missed
     lastLog = {};
     await Promise.all(employees.map(async emp => {
       try {
-        const rows = await sbGet('logs', `&empId=eq.${encodeURIComponent(emp.id)}&order=date.desc,time.desc&limit=1`);
+        const rows = await sbGet('web_logs', `&empId=eq.${encodeURIComponent(emp.id)}&order=date.desc,time.desc&limit=1`);
         if (rows && rows.length) lastLog[String(emp.id)] = rows[0];
       } catch(_) {}
     }));
@@ -437,7 +437,7 @@ async function doAction(type) {
   };
 
   try {
-    await sbInsert('logs', rec);
+    await sbInsert('web_logs', rec);
     todayLogs.push(rec);
     // Update cross-date working state immediately
     if (!lastLog) lastLog = {};
