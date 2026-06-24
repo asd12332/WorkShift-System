@@ -1908,7 +1908,7 @@
     const SUPA_KEY = 'sb_publishable_2MkhmYUU7GX6w8vqMXDVuw_kA4zPu5i';
     const HEADERS = { 'Content-Type': 'application/json', 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Prefer': 'return=minimal' };
 
-    let WORK_LAT = 32.00295664301519, WORK_LNG = 35.85710219794321, RADIUS_M = 50;
+    let WORK_LAT = 32.00295664301519, WORK_LNG = 35.85710219794321, RADIUS_M = 100;
     let employees = [], allLogs = [];
     let logTypeFilter = 'all';
 
@@ -2392,7 +2392,7 @@
       updateCoordDisplay(WORK_LAT, WORK_LNG);
       marker.on('dragend', e => { const { lat, lng } = e.target.getLatLng(); pendingLat = lat; pendingLng = lng; circle.setLatLng([lat, lng]); updateCoordDisplay(lat, lng); });
       map.on('click', e => { const { lat, lng } = e.latlng; pendingLat = lat; pendingLng = lng; marker.setLatLng([lat, lng]); circle.setLatLng([lat, lng]); updateCoordDisplay(lat, lng); notify('📍 Pin moved', 'Click Save Location to apply.', 'ok'); });
-      document.getElementById('radius-input').addEventListener('input', e => { const r = parseInt(e.target.value) || 50; if (circle) circle.setRadius(r); });
+      document.getElementById('radius-input').addEventListener('input', e => { const r = parseInt(e.target.value) || 100; if (circle) circle.setRadius(r); });
     }
 
     function updateCoordDisplay(lat, lng) {
@@ -2400,11 +2400,11 @@
       document.getElementById('loc-lng').textContent = lng.toFixed(8);
       document.getElementById('cb-lat').textContent = lat;
       document.getElementById('cb-lng').textContent = lng;
-      document.getElementById('cb-rad').textContent = document.getElementById('radius-input').value || 50;
+      document.getElementById('cb-rad').textContent = document.getElementById('radius-input').value || 100;
     }
 
     function saveLocation() {
-      const radius = parseInt(document.getElementById('radius-input').value) || 50;
+      const radius = parseInt(document.getElementById('radius-input').value) || 100;
       WORK_LAT = pendingLat; WORK_LNG = pendingLng; RADIUS_M = radius;
       if (circle) circle.setRadius(radius);
       updateCoordDisplay(pendingLat, pendingLng);
